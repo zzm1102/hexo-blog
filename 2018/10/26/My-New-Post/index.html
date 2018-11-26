@@ -79,13 +79,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Chimon&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/hexo-blog/index.html">
+<meta name="description" content="Js数据类型基本数据类型：Number、String、Boolean、null、undefined引用数据类型：Object：{}、[]、/$^/、DateFunction 1. 当浏览器加载HTML页面的时候，首先会提供一个供全局JS代码执行的环境 -&amp;gt; 全局作用域（global/window）2. 预解释（变量提升）在当前的作用域中，JS代码执行之前，浏览器首先会默认把所有带var和fu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS笔记（一）">
+<meta property="og:url" content="http://yoursite.com/hexo-blog/2018/10/26/My-New-Post/index.html">
 <meta property="og:site_name" content="Chimon&#39;s Blog">
+<meta property="og:description" content="Js数据类型基本数据类型：Number、String、Boolean、null、undefined引用数据类型：Object：{}、[]、/$^/、DateFunction 1. 当浏览器加载HTML页面的时候，首先会提供一个供全局JS代码执行的环境 -&amp;gt; 全局作用域（global/window）2. 预解释（变量提升）在当前的作用域中，JS代码执行之前，浏览器首先会默认把所有带var和fu">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-11-26T14:49:41.882Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chimon&#39;s Blog">
+<meta name="twitter:title" content="JS笔记（一）">
+<meta name="twitter:description" content="Js数据类型基本数据类型：Number、String、Boolean、null、undefined引用数据类型：Object：{}、[]、/$^/、DateFunction 1. 当浏览器加载HTML页面的时候，首先会提供一个供全局JS代码执行的环境 -&amp;gt; 全局作用域（global/window）2. 预解释（变量提升）在当前的作用域中，JS代码执行之前，浏览器首先会默认把所有带var和fu">
 
 
 
@@ -115,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/hexo-blog/">
+  <link rel="canonical" href="http://yoursite.com/hexo-blog/2018/10/26/My-New-Post/">
 
 
 
 
 
-  <title>Chimon's Blog</title>
+  <title>JS笔记（一） | Chimon's Blog</title>
   
 
 
@@ -140,8 +144,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -214,9 +217,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -246,9 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/hexo-blog/2018/10/26/My-New-Post/" itemprop="url">JS笔记（一）</a></h1>
+          <h1 class="post-title" itemprop="name headline">JS笔记（一）</h1>
         
 
         <div class="post-meta">
@@ -298,9 +299,7 @@
       
 
       
-        
-          
-            <h3 id="Js数据类型"><a href="#Js数据类型" class="headerlink" title="Js数据类型"></a>Js数据类型</h3><p>基本数据类型：<br>Number、String、Boolean、null、undefined<br>引用数据类型：<br>Object：{}、[]、/$^/、Date<br>Function</p>
+        <h3 id="Js数据类型"><a href="#Js数据类型" class="headerlink" title="Js数据类型"></a>Js数据类型</h3><p>基本数据类型：<br>Number、String、Boolean、null、undefined<br>引用数据类型：<br>Object：{}、[]、/$^/、Date<br>Function</p>
 <h4 id="1-当浏览器加载HTML页面的时候，首先会提供一个供全局JS代码执行的环境-gt-全局作用域（global-window）"><a href="#1-当浏览器加载HTML页面的时候，首先会提供一个供全局JS代码执行的环境-gt-全局作用域（global-window）" class="headerlink" title="1. 当浏览器加载HTML页面的时候，首先会提供一个供全局JS代码执行的环境 -&gt; 全局作用域（global/window）"></a>1. 当浏览器加载HTML页面的时候，首先会提供一个供全局JS代码执行的环境 -&gt; 全局作用域（global/window）</h4><h4 id="2-预解释（变量提升）"><a href="#2-预解释（变量提升）" class="headerlink" title="2. 预解释（变量提升）"></a>2. 预解释（变量提升）</h4><pre><code>在当前的作用域中，JS代码执行之前，浏览器首先会默认把所有带var和function的进行提前声明或者定义
 </code></pre><ul>
 <li><p>1）理解声明和定义</p>
@@ -352,8 +351,6 @@ var fn = function() {
 </code></pre><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Fn();  <span class="comment">//  -&gt; 2</span></span><br><span class="line"><span class="built_in">Function</span> fn() &#123; <span class="built_in">console</span>.log(<span class="number">1</span>) &#125;;  <span class="comment">//声明+定义</span></span><br><span class="line">fn(); <span class="comment">//  -&gt; 2</span></span><br><span class="line">Var fn = <span class="number">10</span>;   <span class="comment">//var fn 提升  -&gt; 赋值 10</span></span><br><span class="line">fn();  <span class="comment">//  -&gt; 10()  error fn is not a function</span></span><br><span class="line"><span class="built_in">Function</span> fn() &#123; <span class="built_in">console</span>.log(<span class="number">2</span>) &#125;;  <span class="comment">// 声明（不重复）+ 重新赋值</span></span><br><span class="line">fn(); <span class="comment">// 报错后不再执行</span></span><br></pre></td></tr></table></figure>
 <h4 id="5-如何查找上级作用域"><a href="#5-如何查找上级作用域" class="headerlink" title="5. 如何查找上级作用域"></a>5. 如何查找上级作用域</h4><p>看当前函数是在哪个作用域下定义的，那么它的上级作用域就是谁<br>和函数在哪执行没有关系<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">12</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> num = <span class="number">120</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(num);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> f = fn;</span><br><span class="line">f();  <span class="comment">//  =&gt;  120</span></span><br><span class="line"></span><br><span class="line">~<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> num = <span class="number">1200</span>;</span><br><span class="line">  fn();  <span class="comment">//  =&gt; 120</span></span><br><span class="line">&#125; ();</span><br></pre></td></tr></table></figure></p>
 
-          
-        
       
     </div>
     
@@ -370,12 +367,12 @@ var fn = function() {
       
 
       
+      
+      
 
       
 
       
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -385,10 +382,11 @@ var fn = function() {
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -396,6 +394,10 @@ var fn = function() {
 
 
           
+
+  
+
+
 
         </div>
         
@@ -416,8 +418,17 @@ var fn = function() {
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -459,6 +470,22 @@ var fn = function() {
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Js数据类型"><span class="nav-number">1.</span> <span class="nav-text">Js数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-当浏览器加载HTML页面的时候，首先会提供一个供全局JS代码执行的环境-gt-全局作用域（global-window）"><span class="nav-number">1.1.</span> <span class="nav-text">1. 当浏览器加载HTML页面的时候，首先会提供一个供全局JS代码执行的环境 -&gt; 全局作用域（global/window）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-预解释（变量提升）"><span class="nav-number">1.2.</span> <span class="nav-text">2. 预解释（变量提升）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-JS中内存的分类"><span class="nav-number">1.3.</span> <span class="nav-text">3. JS中内存的分类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-作用域链"><span class="nav-number">1.4.</span> <span class="nav-text">4. 作用域链</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-预解释的时候，无论条件是否成立，都会把var进行变量提升"><span class="nav-number">1.4.1.</span> <span class="nav-text">(1)  预解释的时候，无论条件是否成立，都会把var进行变量提升</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-匿名函数之函数表达式：把函数定义的部分当作值赋给变量-元素的事件"><span class="nav-number">1.4.2.</span> <span class="nav-text">(2)  匿名函数之函数表达式：把函数定义的部分当作值赋给变量/元素的事件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-自执行函数：不进行预解释，当代码执行到这个位置时定义和执行一起完成"><span class="nav-number">1.4.3.</span> <span class="nav-text">(3)  自执行函数：不进行预解释，当代码执行到这个位置时定义和执行一起完成</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-函数体中return后面的代码虽然不再执行了，但还是会进行预解释"><span class="nav-number">1.4.4.</span> <span class="nav-text">(4)  函数体中return后面的代码虽然不再执行了，但还是会进行预解释</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-在JS中，如果变量名和函数名重复，也算冲突"><span class="nav-number">1.4.5.</span> <span class="nav-text">(5)  在JS中，如果变量名和函数名重复，也算冲突</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-如何查找上级作用域"><span class="nav-number">1.5.</span> <span class="nav-text">5. 如何查找上级作用域</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -592,6 +619,10 @@ var fn = function() {
   
 
   
+  <script type="text/javascript" src="/hexo-blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/hexo-blog/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
