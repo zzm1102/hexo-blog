@@ -79,13 +79,20 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Chimon&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/hexo-blog/index.html">
+<meta name="description" content="关于内存释放和作用域销毁 堆内存对象数据类型或函数数据类型在定义的时候首先会开辟一个堆内存，堆内存对应一个引用地址，如果外面有变量等知道了这个地址，这个内存就被占用了，就不能销毁。1234567var obj1 = &amp;#123;name: ‘zhangsan’&amp;#125;;  // 占用var obj2 = obj1;// obj1 = xxxfff000;// obj2 = obj1 = xxx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS笔记（二）">
+<meta property="og:url" content="http://yoursite.com/hexo-blog/2018/11/28/js-2/index.html">
 <meta property="og:site_name" content="Chimon&#39;s Blog">
+<meta property="og:description" content="关于内存释放和作用域销毁 堆内存对象数据类型或函数数据类型在定义的时候首先会开辟一个堆内存，堆内存对应一个引用地址，如果外面有变量等知道了这个地址，这个内存就被占用了，就不能销毁。1234567var obj1 = &amp;#123;name: ‘zhangsan’&amp;#125;;  // 占用var obj2 = obj1;// obj1 = xxxfff000;// obj2 = obj1 = xxx">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/hexo-blog/2018/11/28/js-2/images/lesson2/1.png">
+<meta property="og:image" content="http://yoursite.com/hexo-blog/2018/11/28/js-2/images/lesson2/2.png">
+<meta property="og:updated_time" content="2018-11-28T09:32:13.137Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chimon&#39;s Blog">
+<meta name="twitter:title" content="JS笔记（二）">
+<meta name="twitter:description" content="关于内存释放和作用域销毁 堆内存对象数据类型或函数数据类型在定义的时候首先会开辟一个堆内存，堆内存对应一个引用地址，如果外面有变量等知道了这个地址，这个内存就被占用了，就不能销毁。1234567var obj1 = &amp;#123;name: ‘zhangsan’&amp;#125;;  // 占用var obj2 = obj1;// obj1 = xxxfff000;// obj2 = obj1 = xxx">
+<meta name="twitter:image" content="http://yoursite.com/hexo-blog/2018/11/28/js-2/images/lesson2/1.png">
 
 
 
@@ -115,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/hexo-blog/">
+  <link rel="canonical" href="http://yoursite.com/hexo-blog/2018/11/28/js-2/">
 
 
 
 
 
-  <title>Chimon's Blog</title>
+  <title>JS笔记（二） | Chimon's Blog</title>
   
 
 
@@ -140,8 +147,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -214,9 +220,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -246,9 +252,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/hexo-blog/2018/11/28/js-2/" itemprop="url">JS笔记（二）</a></h1>
+          <h1 class="post-title" itemprop="name headline">JS笔记（二）</h1>
         
 
         <div class="post-meta">
@@ -298,9 +302,7 @@
       
 
       
-        
-          
-            <h3 id="关于内存释放和作用域销毁"><a href="#关于内存释放和作用域销毁" class="headerlink" title="关于内存释放和作用域销毁"></a>关于内存释放和作用域销毁</h3><ol>
+        <h3 id="关于内存释放和作用域销毁"><a href="#关于内存释放和作用域销毁" class="headerlink" title="关于内存释放和作用域销毁"></a>关于内存释放和作用域销毁</h3><ol>
 <li>堆内存<br>对象数据类型或函数数据类型在定义的时候首先会开辟一个堆内存，堆内存对应一个引用地址，如果外面有变量等知道了这个地址，这个内存就被占用了，就不能销毁。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj1 = &#123;<span class="attr">name</span>: ‘zhangsan’&#125;;  <span class="comment">// 占用</span></span><br><span class="line"><span class="keyword">var</span> obj2 = obj1;</span><br><span class="line"><span class="comment">// obj1 = xxxfff000;</span></span><br><span class="line"><span class="comment">// obj2 = obj1 = xxxfff000;</span></span><br><span class="line"></span><br><span class="line">obj1 = <span class="literal">null</span>;  <span class="comment">//  销毁</span></span><br><span class="line">obj2 = <span class="literal">null</span>;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
@@ -340,8 +342,6 @@
 </ol>
 <h3 id="实战练习——累加器"><a href="#实战练习——累加器" class="headerlink" title="实战练习——累加器"></a>实战练习——累加器</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> oBtn = <span class="built_in">document</span>.getElementById(<span class="string">"btn"</span>);</span><br><span class="line"><span class="keyword">var</span> spanNum = <span class="built_in">document</span>.getElementById(<span class="string">"spanNum"</span>);</span><br><span class="line"><span class="comment">// 1、利用全局作用域不销毁的原理，把需要累加的数字定义为全局变量</span></span><br><span class="line"><span class="keyword">var</span> count = <span class="number">0</span>;</span><br><span class="line">oBtn.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  count++;</span><br><span class="line">  spanNum.innerHTML = count;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 弊端：容易造成项目中全局变量之间的冲突，一般禁止或减少使用全局变量</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2、自己形成一个不销毁的私有作用域来保存需要累加的数字</span></span><br><span class="line">~<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> count = <span class="number">0</span>;</span><br><span class="line">  oBtn.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    count++;</span><br><span class="line">    spanNum.innerHTML = count;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3、原理同方法二，写法不同 return的函数被外界onclick接收，它和自执行函数都不销毁</span></span><br><span class="line">oBtn.onclick = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> count = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    count++;</span><br><span class="line">    spanNum.innerHTML = count;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)();</span><br><span class="line"><span class="comment">// 弊端：有一个不销毁的私有作用域，占内存</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 4、利用innerHTML的方式处理：每次点击先从页面中获取最新的值，然后累加，最后把累加结果重新放回去</span></span><br><span class="line">oBtn.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// spanNum.innerHTML获取页面内容返回的是字符串</span></span><br><span class="line">  <span class="comment">//spanNum.innerHTML = spanNum.innerHTML + 1; -&gt; 0111111...</span></span><br><span class="line">  spanNum.innerHTML++; <span class="comment">// 利用++自带转换数字</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 弊端：每次都需要把页面内容先转换成字符串，再累加并重新添加回去，会造成浏览器的重新渲染</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 5、利用自定义属性存储（推荐）</span></span><br><span class="line">oBtn.count = <span class="number">0</span>; <span class="comment">// oBtn的自定义属性，不是变量，没有作用域</span></span><br><span class="line">oBtn.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  spanNum.innerHTML = ++<span class="keyword">this</span>.count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-          
-        
       
     </div>
     
@@ -358,182 +358,28 @@
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/hexo-blog/hexo-blog/2018/10/26/My-New-Post/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Chimon.Z">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/hexo-blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chimon's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/hexo-blog/2018/10/26/My-New-Post/" itemprop="url">JS笔记（一）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-26T11:42:10+08:00">
-                2018-10-26
-              </time>
+              <a href="/hexo-blog/2018/10/26/My-New-Post/" rel="next" title="JS笔记（一）">
+                <i class="fa fa-chevron-left"></i> JS笔记（一）
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <h3 id="Js数据类型"><a href="#Js数据类型" class="headerlink" title="Js数据类型"></a>Js数据类型</h3><p>基本数据类型：<br>Number、String、Boolean、null、undefined<br>引用数据类型：<br>Object：{}、[]、/$^/、Date<br>Function</p>
-<h4 id="1-当浏览器加载HTML页面的时候，首先会提供一个供全局JS代码执行的环境-gt-全局作用域（global-window）"><a href="#1-当浏览器加载HTML页面的时候，首先会提供一个供全局JS代码执行的环境-gt-全局作用域（global-window）" class="headerlink" title="1. 当浏览器加载HTML页面的时候，首先会提供一个供全局JS代码执行的环境 -&gt; 全局作用域（global/window）"></a>1. 当浏览器加载HTML页面的时候，首先会提供一个供全局JS代码执行的环境 -&gt; 全局作用域（global/window）</h4><h4 id="2-预解释（变量提升）"><a href="#2-预解释（变量提升）" class="headerlink" title="2. 预解释（变量提升）"></a>2. 预解释（变量提升）</h4><pre><code>在当前的作用域中，JS代码执行之前，浏览器首先会默认把所有带var和function的进行提前声明或者定义
-</code></pre><ul>
-<li><p>1）理解声明和定义</p>
-<pre><code>声明：var num;   如果一个只是声明了，但没有赋值，默认的值是undefined
-定义：num = 12
-</code></pre></li>
-<li><p>2）var =&gt; 在预解释的时候只是提前声明，不赋值</p>
-<pre><code>function =&gt; 在预解释的时候声明+定义
-</code></pre><p>e.g.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(num);  <span class="comment">// -&gt; undefined</span></span><br><span class="line"><span class="keyword">var</span> num = <span class="number">12</span>;</span><br><span class="line"><span class="built_in">console</span>.log(num)  <span class="comment">// -&gt; 12</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>3）预解释只发生在当前作用域，开始只对window下进行预解释，只有函数执行的时候才对函数内的进行预解释</p>
-</li>
-</ul>
-<h4 id="3-JS中内存的分类"><a href="#3-JS中内存的分类" class="headerlink" title="3. JS中内存的分类"></a>3. JS中内存的分类</h4><pre><code>栈内存：用来提供一个供JS代码执行的环境 =&gt; 作用域（全局作用域、私有作用域）
-堆内存：用来存储引用数据类型的值 =&gt; 对象存储的是属性名和属性值，函数存储的是代码字符串
-</code></pre><h4 id="4-作用域链"><a href="#4-作用域链" class="headerlink" title="4. 作用域链"></a>4. 作用域链</h4><p>1) 区分全局作用域和私有作用域</p>
-<pre><code>- 1）在全局作用域下（预解释阶段）声明的变量是全局变量
-- 2）在私有作用域中声明的变量和函数的形参都是私有变量
-      在私有作用域中，代码执行遇到一个变量，首先确定是否为私有变量，如果是，则与外面的变量没有任何关系
-      如果不是，则往当前作用域的上级作用域进行查找，一直找到window为止。（作用域链）
-</code></pre><p>2) 当函数执行的时候，首先会形成一个新的私有作用域，然后按照如下步骤执行：</p>
-<pre><code>- 1）如果有形参，先给形参赋值
-- 2）进行私有作用域中的预解释
-- 3）私有作用域中的代码从上到下依次执行
-- 4）。。。。
-</code></pre><ul>
-<li>函数形成私有作用域保护了里面的私有变量不受外界干扰（互相不能修改）=&gt; “闭包”  变量保护机制</li>
-</ul>
-<p>3) 在全局作用域中带var和不带var的区别：</p>
-<ul>
-<li>带var可以进行预解释，所以在赋值前执行不会报错，不带var会报reference undefined错。</li>
-<li>num = 12 =&gt; 相当于给window增加了一个叫做num的属性名，属性值是12</li>
-<li>var num = 12 =&gt; 相当于给全局作用域增加一个全局变量num，同时也相当于给window增加了一个num的属性名，属性值是12</li>
-</ul>
-<h5 id="1-预解释的时候，无论条件是否成立，都会把var进行变量提升"><a href="#1-预解释的时候，无论条件是否成立，都会把var进行变量提升" class="headerlink" title="(1)  预解释的时候，无论条件是否成立，都会把var进行变量提升"></a>(1)  预解释的时候，无论条件是否成立，都会把var进行变量提升</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ( !(“num” <span class="keyword">in</span> <span class="built_in">window</span>) ) &#123;  </span><br><span class="line">   <span class="keyword">var</span> num = <span class="number">12</span>;      <span class="comment">//var 变量提升 使得if条件不成立，num=12 赋值操作不执行</span></span><br><span class="line">&#125;</span><br><span class="line"> <span class="built_in">console</span>.log(num);  <span class="comment">//  undefined</span></span><br></pre></td></tr></table></figure>
-<h5 id="2-匿名函数之函数表达式：把函数定义的部分当作值赋给变量-元素的事件"><a href="#2-匿名函数之函数表达式：把函数定义的部分当作值赋给变量-元素的事件" class="headerlink" title="(2)  匿名函数之函数表达式：把函数定义的部分当作值赋给变量/元素的事件"></a>(2)  匿名函数之函数表达式：把函数定义的部分当作值赋给变量/元素的事件</h5><pre><code>e.g.  
-fn();  //  =&gt; 相当于 undefined()  =&gt; error, fn is not a function
-var fn = function() {
-   console.log(“ok”)
-};
-</code></pre><p>预解释为 var fn  还没有赋值</p>
-<h5 id="3-自执行函数：不进行预解释，当代码执行到这个位置时定义和执行一起完成"><a href="#3-自执行函数：不进行预解释，当代码执行到这个位置时定义和执行一起完成" class="headerlink" title="(3)  自执行函数：不进行预解释，当代码执行到这个位置时定义和执行一起完成"></a>(3)  自执行函数：不进行预解释，当代码执行到这个位置时定义和执行一起完成</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">num</span>) </span>&#123;&#125;) (<span class="number">100</span>)</span><br><span class="line">~<span class="function"><span class="keyword">function</span>(<span class="params">num</span>) </span>&#123;&#125; (<span class="number">100</span>)</span><br><span class="line"> +<span class="function"><span class="keyword">function</span>(<span class="params">num</span>) </span>&#123;&#125; (<span class="number">100</span>)</span><br></pre></td></tr></table></figure>
-<h5 id="4-函数体中return后面的代码虽然不再执行了，但还是会进行预解释"><a href="#4-函数体中return后面的代码虽然不再执行了，但还是会进行预解释" class="headerlink" title="(4)  函数体中return后面的代码虽然不再执行了，但还是会进行预解释"></a>(4)  函数体中return后面的代码虽然不再执行了，但还是会进行预解释</h5><h5 id="5-在JS中，如果变量名和函数名重复，也算冲突"><a href="#5-在JS中，如果变量名和函数名重复，也算冲突" class="headerlink" title="(5)  在JS中，如果变量名和函数名重复，也算冲突"></a>(5)  在JS中，如果变量名和函数名重复，也算冲突</h5><pre><code>window预解释：
-// 声明+定义： fn = xxxfff111;
-// 声明 var fn; (不需要重新声明)
-// 声明（不重复进行）+ 定义 fn = xxxfff222
-// =&gt; fn = xxxfff222;
-</code></pre><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Fn();  <span class="comment">//  -&gt; 2</span></span><br><span class="line"><span class="built_in">Function</span> fn() &#123; <span class="built_in">console</span>.log(<span class="number">1</span>) &#125;;  <span class="comment">//声明+定义</span></span><br><span class="line">fn(); <span class="comment">//  -&gt; 2</span></span><br><span class="line">Var fn = <span class="number">10</span>;   <span class="comment">//var fn 提升  -&gt; 赋值 10</span></span><br><span class="line">fn();  <span class="comment">//  -&gt; 10()  error fn is not a function</span></span><br><span class="line"><span class="built_in">Function</span> fn() &#123; <span class="built_in">console</span>.log(<span class="number">2</span>) &#125;;  <span class="comment">// 声明（不重复）+ 重新赋值</span></span><br><span class="line">fn(); <span class="comment">// 报错后不再执行</span></span><br></pre></td></tr></table></figure>
-<h4 id="5-如何查找上级作用域"><a href="#5-如何查找上级作用域" class="headerlink" title="5. 如何查找上级作用域"></a>5. 如何查找上级作用域</h4><p>看当前函数是在哪个作用域下定义的，那么它的上级作用域就是谁<br>和函数在哪执行没有关系<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">12</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> num = <span class="number">120</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(num);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> f = fn;</span><br><span class="line">f();  <span class="comment">//  =&gt;  120</span></span><br><span class="line"></span><br><span class="line">~<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> num = <span class="number">1200</span>;</span><br><span class="line">  fn();  <span class="comment">//  =&gt; 120</span></span><br><span class="line">&#125; ();</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -543,10 +389,11 @@ var fn = function() {
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -554,6 +401,10 @@ var fn = function() {
 
 
           
+
+  
+
+
 
         </div>
         
@@ -574,8 +425,17 @@ var fn = function() {
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -617,6 +477,22 @@ var fn = function() {
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于内存释放和作用域销毁"><span class="nav-number">1.</span> <span class="nav-text">关于内存释放和作用域销毁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JS中的this关键字"><span class="nav-number">2.</span> <span class="nav-text">JS中的this关键字</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#如何区分："><span class="nav-number">2.0.1.</span> <span class="nav-text">如何区分：</span></a></li></ol></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#实战练习——累加器"><span class="nav-number">3.</span> <span class="nav-text">实战练习——累加器</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -750,6 +626,10 @@ var fn = function() {
   
 
   
+  <script type="text/javascript" src="/hexo-blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/hexo-blog/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
