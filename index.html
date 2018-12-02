@@ -229,6 +229,176 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/hexo-blog/hexo-blog/2018/12/02/js-3/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chimon.Z">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/hexo-blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chimon's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/hexo-blog/2018/12/02/js-3/" itemprop="url">JS笔记（三）——构造函数相关</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-02T15:44:21+08:00">
+                2018-12-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="一、面向对象——单例模式"><a href="#一、面向对象——单例模式" class="headerlink" title="一、面向对象——单例模式"></a>一、面向对象——单例模式</h3><ol>
+<li>对象数据类型的作用：</li>
+</ol>
+<ul>
+<li><p>把描述同一个事物（同一个对象）的属性和方法放在一个内存空间下，起到了分组的作用，这样不同事物之间即使属性名相同，相互也不会发生冲突 -&gt; 这种分组编写代码的模式叫做“单例模式”，obj叫做“命名空间”</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">name</span>: ‘John’,  <span class="attr">age</span>: ’<span class="number">18</span>’&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>“模块化开发”：根据需求划分不同功能模块，每人负责一部分，同时开发，最后进行代码合并</p>
+</li>
+</ul>
+<blockquote>
+<p>单例模式虽然解决了分组问题，但不能实现批量生产，属于手工作业模式<br>工厂模式：把实现同一件事的相同代码放进一个函数中，需要再实现此功能，只需执行函数即可<br>-&gt; “函数封装” -&gt; “低耦合，高内聚”：减少冗余代码，提高代码重复利用率</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createJsPerson</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;&#125;; </span><br><span class="line">obj.name = name;</span><br><span class="line">obj.age = age;</span><br><span class="line">obj.writeJs = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="built_in">console</span>.log(“hello, world!”)</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> p1 = createJsPerson(“john”, <span class="number">48</span>);</span><br><span class="line"><span class="keyword">var</span> p2 = createJsPerson(“lily”, <span class="number">18</span>);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>继承：子类继承父类中的属性和方法<br>多态：当前方法的多种形态 -&gt; 后台语言中多态包含重载和重写<br>重载：方法名相同，参数类型不同。JS中不存在重载，方法名一样，后面的会把前面的覆盖，最后只保留一个<br>重写：子类重写父类的方法</p>
+</blockquote>
+<h5 id="JS中一个类似重载但不是重载的功能"><a href="#JS中一个类似重载但不是重载的功能" class="headerlink" title="JS中一个类似重载但不是重载的功能"></a>JS中一个类似重载但不是重载的功能</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">typeof</span> num === “<span class="literal">undefined</span>”) &#123;</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="二、构造函数模式基础"><a href="#二、构造函数模式基础" class="headerlink" title="二、构造函数模式基础"></a>二、构造函数模式基础</h3><ol>
+<li>构造函数模式和工厂函数的区别？</li>
+</ol>
+<ul>
+<li>工厂函数：普通函数执行 -&gt; createFn();</li>
+<li>构造函数执行 -&gt; var p1 = new CreateFn();  通过new执行后，CreateFn即为一个类, 函数执行的返回值p1是实例</li>
+</ul>
+<blockquote>
+<p>内置类：创建一个数组：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [];  <span class="comment">// 字面量方式</span></span><br><span class="line"><span class="keyword">var</span> arr = <span class="keyword">new</span> <span class="built_in">Array</span>(); <span class="comment">//  实例创建的方式 -&gt; 构造函数模式执行的方式</span></span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>a. JS中所有的类都是函数数据类型，它通过new执行变成了一个类，但它本身也是一个普通的函数<br>JS中所有的实例都是对象数据类型<br>b. 在构造函数模式中，类（函数体）中出现的this.xxx = xxx的this指当前类的一个实例<br>c. p1 和 p2 都是 CreateJsPerson这个类的实例，都拥有 writeJs 方法，但不同实例之间的方法是不一样的<br>在类中给实例增加的属性是当前实例的私有属性，实例和实例之间是相互独立的，所以私有属性是不相等的<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(p1.writeJs === p2.writeJs);  <span class="comment">// -&gt; false</span></span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<ol start="2">
+<li>在函数代码执行的时候</li>
+</ol>
+<ul>
+<li>相同： 都是形成一个私有作用域，然后形参赋值 -&gt; 预解释 -&gt; 代码从上到下执行</li>
+<li>不同：在代码执行前，构造函数不用再自己手动创建对象，浏览器会默认创建一个对象数据类型值（这个对象就是我们当前类的实例，用this指代），浏览器再把创建的实例默认返回</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">CreateJsPerson</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line"><span class="comment">// var obj = &#123;&#125;; </span></span><br><span class="line"><span class="keyword">this</span>.name = name;</span><br><span class="line"><span class="keyword">this</span>.age = age;</span><br><span class="line"><span class="keyword">this</span>.writeJs = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="built_in">console</span>.log(“hello, world!”)</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// return obj;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> p1 = <span class="keyword">new</span>  CreateJsPerson(“john”, <span class="number">29</span>);</span><br><span class="line"><span class="keyword">var</span> p2 = <span class="keyword">new</span>  CreateJsPerson(“lily”, <span class="number">18</span>);</span><br><span class="line"><span class="keyword">var</span> res = CreateJsPerson(“lily”, <span class="number">18</span>);  <span class="comment">// -&gt; undefined</span></span><br><span class="line"><span class="comment">// 这样写不是构造函数模式执行，而是普通函数执行，由于没有写return，所以res = undefined; </span></span><br><span class="line"><span class="comment">// 并且CreateJsPerson中的this是window</span></span><br></pre></td></tr></table></figure>
+<h4 id="构造函数知识点扩展"><a href="#构造函数知识点扩展" class="headerlink" title="构造函数知识点扩展"></a>构造函数知识点扩展</h4><ol>
+<li>在构造函数中，new Fn()执行，如果Fn不需要传递参数，后面的（）可以省略<br>// var f1 = new Fn;</li>
+<li>this的问题：在类中出现的this.xxx = xxx中的this都是当前类的实例，而某一个属性值（方法）中的this需要看方法执行的时候前面是否有“.” 才能知道this指向谁</li>
+<li>类有普通函数的一面，当函数执行的时候，var num 其实只是当前形成的私有作用域中的私有变量而已，它和f1这个实例没有任何关系，只有this.xxx = xxx才相当于给实例增加私有属性和方法</li>
+<li>在构造函数模式中，浏览器会默认返回实例（一个对象数据类型的值）。）<br>如果自己手动return 返回：<br>1）返回基本数据类型的值：当前实例不变（return 100; 实例还是f1）<br>2）返回引用数据类型的值，当前的f1实例会被返回的值替换</li>
+<li>检测某一个实例是否属于这个类 -&gt; instanceof<blockquote>
+<p>console.log(f1 instanceof Fn);  // -&gt; true<br>console.log(f1 instanceof Object);  // -&gt; true </p>
+</blockquote>
+</li>
+<li>检测某一个属性是否属于这个对象（attr in Object），不管是私有还是共有属性，只要存在，用 in 检测都为true。hasOwnProperty：只能用来检测属性是否是对象的“私有属性”</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="keyword">var</span> num = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">this</span>.x = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">this</span>.getX = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">this</span>.x)</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> f1 = <span class="keyword">new</span> Fn;</span><br><span class="line">f1.getX();  <span class="comment">//  方法中的this是f1 -&gt; 100</span></span><br><span class="line"><span class="built_in">console</span>.log(f1.num);   <span class="comment">// -&gt; undefined</span></span><br><span class="line"><span class="keyword">var</span> ss = f1.getX;</span><br><span class="line">ss();  <span class="comment">//  方法中的this是window -&gt; undefined</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 思考：检测某个属性是否为该对象的“公有属性”</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hasPubProperty</span>(<span class="params">obj, attr</span>) </span>&#123;</span><br><span class="line"><span class="keyword">return</span> (attr <span class="keyword">in</span> obj) &amp;&amp; !obj.hasOwnProperty(attr);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(hasPubProperty(f1, “getX”));  <span class="comment">// -&gt; false</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/hexo-blog/hexo-blog/2018/11/28/js-2/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -590,7 +760,7 @@ var fn = function() {
               
                 <a href="/hexo-blog/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
