@@ -229,6 +229,159 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/hexo-blog/hexo-blog/2018/12/04/js-4/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chimon.Z">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/hexo-blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chimon's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/hexo-blog/2018/12/04/js-4/" itemprop="url">JS笔记（四）——原型链模式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-04T01:06:24+08:00">
+                2018-12-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="一、原型模式"><a href="#一、原型模式" class="headerlink" title="一、原型模式"></a>一、原型模式</h3><p>基于构造函数模式的原型模式解决了方法或者属性公有的问题 -&gt; 把实例之间相同的属性和方法提取成公有的属性和方法（xxxprototype.xxx）</p>
+<ol>
+<li>每一个函数数据类型（普通函数、类）都有一个自带的属性：prototype，并且这个属性是一个对象数据类型的值</li>
+<li>在prototype上类蓝旗给它加了一个属性constructor（构造函数），属性值是当前函数（类）本身</li>
+<li>每一个对象数据类型（普通对象、实例、prototype…）也再带一个属性<strong>proto</strong>，属性值是当前实例所属类的原型（prototype）</li>
+</ol>
+<h4 id="Object是JS中所有对象数据类型的基类（最顶层的类）"><a href="#Object是JS中所有对象数据类型的基类（最顶层的类）" class="headerlink" title="Object是JS中所有对象数据类型的基类（最顶层的类）"></a>Object是JS中所有对象数据类型的基类（最顶层的类）</h4><p>1）f1 instanceof Object  -&gt; true  因为f1通过<strong>proto</strong>可以向上级查找，最后总能找到Object<br>2）在Object.prototype上没有<strong>proto</strong>这个属性</p>
+<h4 id="原型链模式"><a href="#原型链模式" class="headerlink" title="原型链模式"></a>原型链模式</h4><p>通过 对象名.属性名 的方式获取属性值的时候，首先在对象私有属性上进行查找，如果私有属性存在这个值，则获取私有属性值。<br>如果私有的没有，则通过<strong>proto</strong>找到所属类的原型（类的原型上定义的属性和方法都是当前实例公有的属性和方法），一直找到Object.prototype为止。</p>
+<blockquote>
+<p>IE浏览器中原型模式也是同样原理，但由于IE担心通过<strong>proto</strong>把公有属性修改，因此禁止使用<strong>proto</strong></p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">f1.getX === f2.getX  <span class="comment">// -&gt;  true</span></span><br><span class="line">f1.__proto__.getX === f2.getX  <span class="comment">// -&gt; true</span></span><br><span class="line">f1.getX === Fn.prototype.getX  <span class="comment">// -&gt; true</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在内置类的基础上扩展方法：数组去重</span></span><br><span class="line"><span class="built_in">Array</span>.prototype.myUnique = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// this -&gt; ary</span></span><br><span class="line">  <span class="keyword">var</span> obj = &#123;&#125;;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i &lt; <span class="keyword">this</span>.length; i++) &#123;</span><br><span class="line">    <span class="keyword">var</span> cur = <span class="keyword">this</span>[i];</span><br><span class="line">      <span class="keyword">if</span> (obj[cur] === cur) &#123;</span><br><span class="line">        <span class="keyword">this</span>[i] = <span class="keyword">this</span>[<span class="keyword">this</span>.length - <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">this</span>.length--;</span><br><span class="line">        i--;</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    obj[cur] = cur;</span><br><span class="line">  &#125;</span><br><span class="line">  obj = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">this</span>; <span class="comment">//  this -&gt; ary，为实现链式写法</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> ary = [];</span><br></pre></td></tr></table></figure>
+<h3 id="二、批量设置原型上的公有属性和方法"><a href="#二、批量设置原型上的公有属性和方法" class="headerlink" title="二、批量设置原型上的公有属性和方法"></a>二、批量设置原型上的公有属性和方法</h3><ol>
+<li>起别名：pro = Fn.prototype; 把原来原型指向的地址赋值给pro，从而操作同一个内存空间</li>
+<li>重构原型对象方式<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.x = <span class="number">100</span>;</span><br><span class="line">&#125;</span><br><span class="line">Fn.prototype = &#123;</span><br><span class="line">  <span class="keyword">constructor</span>: Fn,  // 手动增加</span><br><span class="line">  a: function() &#123;&#125;,</span><br><span class="line">  b: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> f = <span class="keyword">new</span> Fn;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>// 只有浏览器天生给Fn.prototype开辟的堆内存才有constructor，自己开辟的没有，constructor不再是指向Fn，而是Object<br>console.log(f.constructor);  // -&gt; Object (没做处理前)</p>
+<blockquote>
+<p>用这种方式给内置类增加公有属性会替换掉原来已经存在的原型和方法，因此会被浏览器屏蔽<br>因此只能单独修改内置类的方法，如果方法名重复，会修改内置方法 -&gt; 在内置类的原型上加方法，都需要加特殊前缀</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.prototype.sort = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(“ok”);  <span class="comment">// this -&gt; ary</span></span><br><span class="line">  <span class="keyword">var</span> ary = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">4</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>];</span><br><span class="line">  ary.sort(); </span><br><span class="line">  <span class="built_in">console</span>.log(ary);  <span class="comment">// -&gt; “ok”</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="三、深入扩展原型链模式常用的六种继承方式"><a href="#三、深入扩展原型链模式常用的六种继承方式" class="headerlink" title="三、深入扩展原型链模式常用的六种继承方式"></a>三、深入扩展原型链模式常用的六种继承方式</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// for in 循环在遍历对象的时候默认可以吧自己私有的和所属类原型上扩展的属性和方法都遍历到。</span></span><br><span class="line"><span class="comment">// 但一般情况下我们只需要遍历私有属性即可，可使用以下判断处理：</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> obj) &#123;</span><br><span class="line">  <span class="keyword">if</span> (obj.propertyIsEnumerable(key)) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(key);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Object.create()方法创建一个拥有指定原型和若干个指定属性的新对象，使用现有的对象来提供新创建的对象的<strong>proto</strong>。<br>Object.create(proto, [propertiesObject])<br>￼</p>
+<h4 id="1-“原型继承”是JS中最常用的一种继承方式"><a href="#1-“原型继承”是JS中最常用的一种继承方式" class="headerlink" title="1. “原型继承”是JS中最常用的一种继承方式"></a>1. “原型继承”是JS中最常用的一种继承方式</h4><blockquote>
+<p>子类B想继承父类A的所有属性和方法（私有+公有），只需要 B.prototype = new A 即可。<br>原型继承的特点：把父类中私有+公有都继承到子类原型上（子类公有的）（父类私有+公有 -&gt; 子类公有）</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.x = <span class="number">100</span>;</span><br><span class="line">&#125;</span><br><span class="line">A.prototype.getX = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.x);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">B</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.y = <span class="number">200</span>;</span><br><span class="line">&#125;</span><br><span class="line">B.prototype = <span class="keyword">new</span> A;</span><br></pre></td></tr></table></figure>
+<h4 id="2-call-继承"><a href="#2-call-继承" class="headerlink" title="2.call 继承"></a>2.call 继承</h4><p>把父类私有的属性和方法克隆一份作为子类私有的属性和方法 （父类私有 -&gt; 子类私有）<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.x = <span class="number">100</span>;</span><br><span class="line">&#125;</span><br><span class="line">A.prototype.getX = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.x);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">B</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// this -&gt; n</span></span><br><span class="line">  A.call(<span class="keyword">this</span>);  <span class="comment">// -&gt; A.call(n) 把A执行，让A中的this变为n</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> n = <span class="keyword">new</span> B;</span><br><span class="line"><span class="built_in">console</span>.log(n.x);  <span class="comment">//  -&gt; 100</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="3-冒充对象继承"><a href="#3-冒充对象继承" class="headerlink" title="3. 冒充对象继承"></a>3. 冒充对象继承</h4><p>把父类私有+公有属性和方法克隆一份作为子类私有的属性和方法（父类私有+公有 -&gt; 子类私有）<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.x = <span class="number">100</span>;</span><br><span class="line">&#125;</span><br><span class="line">A.prototype.getX = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.x);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">B</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> temp = <span class="keyword">new</span> A;</span><br><span class="line">  <span class="keyword">for</span> (key <span class="keyword">in</span> temp) &#123;</span><br><span class="line">    <span class="keyword">this</span>[key] = temp[key]</span><br><span class="line">  &#125;</span><br><span class="line">temp = <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> n = <span class="keyword">new</span> B;</span><br></pre></td></tr></table></figure></p>
+<h4 id="4-混合模式继承"><a href="#4-混合模式继承" class="headerlink" title="4. 混合模式继承"></a>4. 混合模式继承</h4><p>原型继承 + call 继承 (父类私有 -&gt; 子类私有 &amp;&amp; 父类公有+私有 -&gt; 子类公有)<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.x = <span class="number">100</span>;</span><br><span class="line">&#125;</span><br><span class="line">A.prototype.getX = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.x);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">B</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  A.call(<span class="keyword">this</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">B.prototype = <span class="keyword">new</span> A;  <span class="comment">// 弊端：把父类私有和公有都克隆给了子类公有，重复了</span></span><br><span class="line">B.prototype.constructor = B;</span><br></pre></td></tr></table></figure></p>
+<h4 id="5-寄生组合式继承"><a href="#5-寄生组合式继承" class="headerlink" title="5. 寄生组合式继承"></a>5. 寄生组合式继承</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.x = <span class="number">100</span>;</span><br><span class="line">&#125;</span><br><span class="line">A.prototype.getX = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="keyword">this</span>.x);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">B</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  A.call(<span class="keyword">this</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">B.prototype = <span class="built_in">Object</span>.create(A.prototype);  <span class="comment">// -&gt; 解决 4.混合模式继承的重复问题</span></span><br><span class="line">B.prototype.constructor = B;</span><br><span class="line"><span class="comment">// IE8 以下不支持 Object.create, 模拟方法如下：</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">objectCreate</span>(<span class="params">o</span>) </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    fn.prototype = o;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> fn;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> n = <span class="keyword">new</span> B;</span><br></pre></td></tr></table></figure>
+<h4 id="6-中间类继承法-gt-不兼容-可用于移动端"><a href="#6-中间类继承法-gt-不兼容-可用于移动端" class="headerlink" title="6. 中间类继承法 -&gt; 不兼容, 可用于移动端"></a>6. 中间类继承法 -&gt; 不兼容, 可用于移动端</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 去掉最高和最低数求平均数 原方法：</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">avgFn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// Array.prototype.slice.call(arguments);  转化成数组之后做  或者</span></span><br><span class="line">  <span class="built_in">Array</span>.prototype.sort.call(<span class="built_in">arguments</span>, <span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a - b;</span><br><span class="line">  &#125;)  <span class="comment">// 先排序</span></span><br><span class="line">  <span class="built_in">Array</span>.prototype.pop.call(<span class="built_in">arguments</span>);</span><br><span class="line">  <span class="built_in">Array</span>.prototype.shift.call(<span class="built_in">arguments</span>);</span><br><span class="line">  <span class="keyword">return</span> (<span class="built_in">eval</span>(<span class="built_in">Array</span>.prototype.join.call(<span class="built_in">arguments</span>, “+”) ) / <span class="built_in">arguments</span>.length).toFixed(<span class="number">2</span>); </span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(avgFn(<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">10</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">40</span>,));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 中间类继承法</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">avgFn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">arguments</span>.__proto__ = <span class="built_in">Array</span>.prototype;</span><br><span class="line">  <span class="built_in">arguments</span>.sort();  <span class="comment">// 可直接使用sort方法</span></span><br><span class="line">  <span class="built_in">arguments</span>.pop();</span><br><span class="line">  <span class="built_in">arguments</span>.shift();</span><br><span class="line">  <span class="keyword">return</span> (<span class="built_in">eval</span>(<span class="built_in">arguments</span>.join(“+”) / <span class="built_in">arguments</span>.length).toFixed(<span class="number">2</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/hexo-blog/hexo-blog/2018/12/02/js-3/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -313,11 +466,11 @@
 <blockquote>
 <p>单例模式虽然解决了分组问题，但不能实现批量生产，属于手工作业模式<br>工厂模式：把实现同一件事的相同代码放进一个函数中，需要再实现此功能，只需执行函数即可<br>-&gt; “函数封装” -&gt; “低耦合，高内聚”：减少冗余代码，提高代码重复利用率</p>
 </blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createJsPerson</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;&#125;; </span><br><span class="line">obj.name = name;</span><br><span class="line">obj.age = age;</span><br><span class="line">obj.writeJs = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="built_in">console</span>.log(“hello, world!”)</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> p1 = createJsPerson(“john”, <span class="number">48</span>);</span><br><span class="line"><span class="keyword">var</span> p2 = createJsPerson(“lily”, <span class="number">18</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createJsPerson</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> obj = &#123;&#125;; </span><br><span class="line">  obj.name = name;</span><br><span class="line">  obj.age = age;</span><br><span class="line">  obj.writeJs = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(“hello, world!”)</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> p1 = createJsPerson(“john”, <span class="number">48</span>);</span><br><span class="line"><span class="keyword">var</span> p2 = createJsPerson(“lily”, <span class="number">18</span>);</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>继承：子类继承父类中的属性和方法<br>多态：当前方法的多种形态 -&gt; 后台语言中多态包含重载和重写<br>重载：方法名相同，参数类型不同。JS中不存在重载，方法名一样，后面的会把前面的覆盖，最后只保留一个<br>重写：子类重写父类的方法</p>
 </blockquote>
-<h5 id="JS中一个类似重载但不是重载的功能"><a href="#JS中一个类似重载但不是重载的功能" class="headerlink" title="JS中一个类似重载但不是重载的功能"></a>JS中一个类似重载但不是重载的功能</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">typeof</span> num === “<span class="literal">undefined</span>”) &#123;</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="JS中一个类似重载但不是重载的功能"><a href="#JS中一个类似重载但不是重载的功能" class="headerlink" title="JS中一个类似重载但不是重载的功能"></a>JS中一个类似重载但不是重载的功能</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> num === “<span class="literal">undefined</span>”) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="二、构造函数模式基础"><a href="#二、构造函数模式基础" class="headerlink" title="二、构造函数模式基础"></a>二、构造函数模式基础</h3><ol>
 <li>构造函数模式和工厂函数的区别？</li>
 </ol>
@@ -338,7 +491,7 @@
 <li>相同： 都是形成一个私有作用域，然后形参赋值 -&gt; 预解释 -&gt; 代码从上到下执行</li>
 <li>不同：在代码执行前，构造函数不用再自己手动创建对象，浏览器会默认创建一个对象数据类型值（这个对象就是我们当前类的实例，用this指代），浏览器再把创建的实例默认返回</li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">CreateJsPerson</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line"><span class="comment">// var obj = &#123;&#125;; </span></span><br><span class="line"><span class="keyword">this</span>.name = name;</span><br><span class="line"><span class="keyword">this</span>.age = age;</span><br><span class="line"><span class="keyword">this</span>.writeJs = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="built_in">console</span>.log(“hello, world!”)</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// return obj;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> p1 = <span class="keyword">new</span>  CreateJsPerson(“john”, <span class="number">29</span>);</span><br><span class="line"><span class="keyword">var</span> p2 = <span class="keyword">new</span>  CreateJsPerson(“lily”, <span class="number">18</span>);</span><br><span class="line"><span class="keyword">var</span> res = CreateJsPerson(“lily”, <span class="number">18</span>);  <span class="comment">// -&gt; undefined</span></span><br><span class="line"><span class="comment">// 这样写不是构造函数模式执行，而是普通函数执行，由于没有写return，所以res = undefined; </span></span><br><span class="line"><span class="comment">// 并且CreateJsPerson中的this是window</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">CreateJsPerson</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// var obj = &#123;&#125;; </span></span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">  <span class="keyword">this</span>.age = age;</span><br><span class="line">  <span class="keyword">this</span>.writeJs = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(“hello, world!”)</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="comment">// return obj;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> p1 = <span class="keyword">new</span>  CreateJsPerson(“john”, <span class="number">29</span>);</span><br><span class="line"><span class="keyword">var</span> p2 = <span class="keyword">new</span>  CreateJsPerson(“lily”, <span class="number">18</span>);</span><br><span class="line"><span class="keyword">var</span> res = CreateJsPerson(“lily”, <span class="number">18</span>);  <span class="comment">// -&gt; undefined</span></span><br><span class="line"><span class="comment">// 这样写不是构造函数模式执行，而是普通函数执行，由于没有写return，所以res = undefined; </span></span><br><span class="line"><span class="comment">// 并且CreateJsPerson中的this是window</span></span><br></pre></td></tr></table></figure>
 <h4 id="构造函数知识点扩展"><a href="#构造函数知识点扩展" class="headerlink" title="构造函数知识点扩展"></a>构造函数知识点扩展</h4><ol>
 <li>在构造函数中，new Fn()执行，如果Fn不需要传递参数，后面的（）可以省略<br>// var f1 = new Fn;</li>
 <li>this的问题：在类中出现的this.xxx = xxx中的this都是当前类的实例，而某一个属性值（方法）中的this需要看方法执行的时候前面是否有“.” 才能知道this指向谁</li>
@@ -350,7 +503,7 @@
 </li>
 <li>检测某一个属性是否属于这个对象（attr in Object），不管是私有还是共有属性，只要存在，用 in 检测都为true。hasOwnProperty：只能用来检测属性是否是对象的“私有属性”</li>
 </ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="keyword">var</span> num = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">this</span>.x = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">this</span>.getX = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">this</span>.x)</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> f1 = <span class="keyword">new</span> Fn;</span><br><span class="line">f1.getX();  <span class="comment">//  方法中的this是f1 -&gt; 100</span></span><br><span class="line"><span class="built_in">console</span>.log(f1.num);   <span class="comment">// -&gt; undefined</span></span><br><span class="line"><span class="keyword">var</span> ss = f1.getX;</span><br><span class="line">ss();  <span class="comment">//  方法中的this是window -&gt; undefined</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 思考：检测某个属性是否为该对象的“公有属性”</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hasPubProperty</span>(<span class="params">obj, attr</span>) </span>&#123;</span><br><span class="line"><span class="keyword">return</span> (attr <span class="keyword">in</span> obj) &amp;&amp; !obj.hasOwnProperty(attr);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(hasPubProperty(f1, “getX”));  <span class="comment">// -&gt; false</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> num = <span class="number">100</span>;</span><br><span class="line">  <span class="keyword">this</span>.x = <span class="number">100</span>;</span><br><span class="line">  <span class="keyword">this</span>.getX = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.x)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> f1 = <span class="keyword">new</span> Fn;</span><br><span class="line">f1.getX();  <span class="comment">//  方法中的this是f1 -&gt; 100</span></span><br><span class="line"><span class="built_in">console</span>.log(f1.num);   <span class="comment">// -&gt; undefined</span></span><br><span class="line"><span class="keyword">var</span> ss = f1.getX;</span><br><span class="line">ss();  <span class="comment">//  方法中的this是window -&gt; undefined</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 思考：检测某个属性是否为该对象的“公有属性”</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hasPubProperty</span>(<span class="params">obj, attr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (attr <span class="keyword">in</span> obj) &amp;&amp; !obj.hasOwnProperty(attr);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(hasPubProperty(f1, “getX”));  <span class="comment">// -&gt; false</span></span><br></pre></td></tr></table></figure>
 
           
         
@@ -760,7 +913,7 @@ var fn = function() {
               
                 <a href="/hexo-blog/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
