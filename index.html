@@ -229,6 +229,143 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/hexo-blog/hexo-blog/2018/12/07/js-5/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chimon.Z">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/hexo-blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chimon's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/hexo-blog/2018/12/07/js-5/" itemprop="url">JS笔记（五）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-07T14:23:37+08:00">
+                2018-12-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="函数的三种角色"><a href="#函数的三种角色" class="headerlink" title="函数的三种角色"></a>函数的三种角色</h3><p>函数本身会有一些自己的属性：</p>
+<blockquote>
+<p>length: 形参的个数<br>name: 函数名<br>prototype: 类的原型，在原型上定义的方法都是当前Fn这个类实例的公有方法<br>__proto__: 把函数当作一个普通对象，指向Function这个类的原型</p>
+</blockquote>
+<p><img src="./images/lesson2/5.png" alt=""></p>
+<h4 id="一个函数存在多面性："><a href="#一个函数存在多面性：" class="headerlink" title="一个函数存在多面性："></a>一个函数存在多面性：</h4><p>“普通函数”：它本身就是一个普通函数，执行时形成私有作用域（闭包）、形参赋值、预解释、代码执行、执行完成后栈内存销毁/不销毁</p>
+<p>“类”： 它有自己的实例，也有prototype属性 是自己的原型，它的实例都可以指向自己的原型</p>
+<p>“普通对象”：和var obj = {} 中的obj一样，就是一个普通的对象，它作为对象可以有自己私有的属性，也可以通过__proto__找到Function.prototype</p>
+<p>这三者之间是没有必然关系的</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> num = <span class="number">500</span>;</span><br><span class="line">    <span class="keyword">this</span>.x = <span class="number">100</span>;</span><br><span class="line">&#125;</span><br><span class="line">Fn.prototype.getX = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.x);</span><br><span class="line">&#125;</span><br><span class="line">Fn.aaa = <span class="number">1000</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> f = <span class="keyword">new</span> Fn;</span><br><span class="line">f.num  <span class="comment">// -&gt; undefined</span></span><br><span class="line">f.aaa  <span class="comment">// -&gt; undefined</span></span><br><span class="line"><span class="keyword">var</span> res = Fn();  <span class="comment">//普通函数执行,this -&gt; window, 没有返回值</span></span><br><span class="line">res  -&gt; <span class="literal">undefined</span></span><br></pre></td></tr></table></figure>
+<h3 id="call方法深入"><a href="#call方法深入" class="headerlink" title="call方法深入"></a>call方法深入</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ary = [<span class="number">10</span>, <span class="number">23</span>, <span class="number">30</span>];</span><br><span class="line">ary.slice  <span class="comment">// -&gt; ary这个实例通过原型链的查找机制找到Array.prototype上的slice方法</span></span><br><span class="line">ary.slice();  <span class="comment">// -&gt; 让找到的slice方法执行，在执行过程中，才把ary数组截取</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">name</span>: john&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line">fn.call(obj);  <span class="comment">// -&gt; call让fn中的this指向第一个参数值obj</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">2</span>);</span><br><span class="line">&#125;</span><br><span class="line">fn1.call(fn2);  <span class="comment">// -&gt; 1</span></span><br><span class="line">fn1.call.call(fn2);  <span class="comment">// -&gt; 2</span></span><br></pre></td></tr></table></figure>
+<p>call、apply、bind的区别<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">name</span>: john&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">num1, num2</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(num1 + num2);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line">fn.call(<span class="number">100</span>, <span class="number">200</span>);  <span class="comment">// this -&gt; 100, num1 = 200, num2 = undefined  -&gt;  NaN, 100</span></span><br><span class="line">fn.call(obj, <span class="number">100</span>, <span class="number">200</span>);  <span class="comment">// this -&gt; obj, num1 = 100, num2 = 100</span></span><br><span class="line">fn.call();  <span class="comment">// this -&gt; window</span></span><br><span class="line">fn.call(<span class="literal">null</span>);  <span class="comment">// this -&gt; window</span></span><br><span class="line">fn.call(<span class="literal">undefined</span>);  <span class="comment">// this -&gt; window</span></span><br><span class="line"></span><br><span class="line">apply(obj, [<span class="number">100</span>, <span class="number">200</span>]);  <span class="comment">// apply 传递参数为数组，和call写法不同</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//应用：获取数组最大值</span></span><br><span class="line"><span class="keyword">var</span> ary = [<span class="number">30</span>, <span class="number">12</span>, <span class="number">22</span>, <span class="number">43</span>, <span class="number">20</span>];</span><br><span class="line"><span class="keyword">var</span> max = <span class="built_in">Math</span>.max.apply(<span class="literal">null</span>, ary);</span><br><span class="line"><span class="built_in">console</span>.log(max);</span><br><span class="line"><span class="comment">// Math.max(30, 12, 22, 43, 20), 直接传数组会NaN</span></span><br></pre></td></tr></table></figure></p>
+<p>call 和 apply 写法不一样，其他都相同<br>bind在IE6~8下不兼容<br>fn.call(obj, 100, 200);  //  改变this，传递参数并执行函数<br>fn.bind(obj, 100, 200);  //  改变this，传递参数，不执行函数。进行预处理 </p>
+<blockquote>
+<p>eval:把字符串变为js表达式执行<br>括号表达式，一个括号中间出现多项内容，以“，”隔开，最终获取到的结果只有最后一个</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">;(fn1, fn2)();  <span class="comment">// 最后只有fn2执行</span></span><br><span class="line">(fn1, obj.fn)();  <span class="comment">// 执行obj.fn， 但this指向window</span></span><br><span class="line">(obj.fn)();  <span class="comment">// this仍然指向obj</span></span><br></pre></td></tr></table></figure>
+<h3 id="类数组转换为数组"><a href="#类数组转换为数组" class="headerlink" title="类数组转换为数组"></a>类数组转换为数组</h3><p>arguments、getElementsByTagname HTMLCollection元素集合、getElementsByName NodeList节点集合都是类数组集合<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// -&gt; 标准</span></span><br><span class="line"><span class="keyword">var</span> ary = <span class="built_in">Array</span>.prototype.slice.call(oList);</span><br><span class="line"></span><br><span class="line"><span class="comment">// -&gt; 非标准</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;oList.length; i++) &#123;</span><br><span class="line">    ary[ary.length] = oList[i];</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 在IE6~8浏览器中，不支持借用数组的slice实现将元素集合（节点集合）的类数组转换为数组，</span></span><br><span class="line"><span class="comment">// 但对于arguments借用数组方法是没有兼容性问题的</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 完整方法</span></span><br><span class="line"><span class="keyword">var</span> utils = &#123;</span><br><span class="line">    listToArray: <span class="function"><span class="keyword">function</span>(<span class="params">classArray</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> ary = [];</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">	    ary = <span class="built_in">Array</span>.prototype.slice.call(classArray);</span><br><span class="line">	&#125; <span class="keyword">catch</span>(e) &#123;</span><br><span class="line">	    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;classArray.length; i++) &#123;</span><br><span class="line">    	        ary[ary.length] = classArray[i];</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;</span><br><span class="line">        <span class="keyword">return</span> ary;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/hexo-blog/hexo-blog/2018/12/04/js-4/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -657,12 +794,14 @@
 <p>JS中的this代表的是当前行为执行的主体；JS中的context代表的是当前行为执行的环境（区域）<br>this是谁和函数在哪定义或在哪执行都没有关系</p>
 </blockquote>
 <h5 id="如何区分："><a href="#如何区分：" class="headerlink" title="如何区分："></a>如何区分：</h5><ol>
-<li>首先看函数前是否有“.”，前面是谁this就指向谁，否则指向window</li>
-<li>自执行函数中的this永远是window</li>
-<li>给元素的某一个事件绑定方法，当事件触发时执行绑定方法，方法中的this是当前元素<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> oo = &#123;</span><br><span class="line">	<span class="comment">// this -&gt; oo</span></span><br><span class="line">	sum: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		fn();  <span class="comment">// this -&gt; window  </span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line">oo.sum();</span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.getElementById(“div1”).onclick = fn;  <span class="comment">// this -&gt; #div1</span></span><br><span class="line"><span class="built_in">document</span>.getElementById(“div1”).onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="comment">// this -&gt; #div1</span></span><br><span class="line">	fn();  <span class="comment">// this -&gt; window</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li>自执行函数中的this永远是window，“use struct” 严格模式下，自执行函数的this永远是undefined</li>
+<li>首先看函数前是否有“.”，前面是谁this就指向谁，否则指向window（严格模式下是undefined）</li>
+<li>给元素的某一个事件绑定方法，当事件触发时执行绑定方法，方法中的this是当前元素</li>
+<li>在构造函数模式中，类（函数体）中出现的this.xxx = xxx的this指当前类的一个实例</li>
+<li>可以使用call、apply、bind改变this的指向<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> oo = &#123;</span><br><span class="line">	<span class="comment">// this -&gt; oo</span></span><br><span class="line">	sum: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		fn();  <span class="comment">// this -&gt; window  </span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line">oo.sum();</span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.getElementById(“div1”).onclick = fn;  <span class="comment">// this -&gt; #div1</span></span><br><span class="line"><span class="built_in">document</span>.getElementById(“div1”).onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="comment">// this -&gt; #div1</span></span><br><span class="line">	fn();  <span class="comment">// this -&gt; window</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<h3 id="实战练习——累加器"><a href="#实战练习——累加器" class="headerlink" title="实战练习——累加器"></a>实战练习——累加器</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> oBtn = <span class="built_in">document</span>.getElementById(<span class="string">"btn"</span>);</span><br><span class="line"><span class="keyword">var</span> spanNum = <span class="built_in">document</span>.getElementById(<span class="string">"spanNum"</span>);</span><br><span class="line"><span class="comment">// 1、利用全局作用域不销毁的原理，把需要累加的数字定义为全局变量</span></span><br><span class="line"><span class="keyword">var</span> count = <span class="number">0</span>;</span><br><span class="line">oBtn.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  count++;</span><br><span class="line">  spanNum.innerHTML = count;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 弊端：容易造成项目中全局变量之间的冲突，一般禁止或减少使用全局变量</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2、自己形成一个不销毁的私有作用域来保存需要累加的数字</span></span><br><span class="line">~<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> count = <span class="number">0</span>;</span><br><span class="line">  oBtn.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    count++;</span><br><span class="line">    spanNum.innerHTML = count;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3、原理同方法二，写法不同 return的函数被外界onclick接收，它和自执行函数都不销毁</span></span><br><span class="line">oBtn.onclick = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> count = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    count++;</span><br><span class="line">    spanNum.innerHTML = count;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)();</span><br><span class="line"><span class="comment">// 弊端：有一个不销毁的私有作用域，占内存</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 4、利用innerHTML的方式处理：每次点击先从页面中获取最新的值，然后累加，最后把累加结果重新放回去</span></span><br><span class="line">oBtn.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// spanNum.innerHTML获取页面内容返回的是字符串</span></span><br><span class="line">  <span class="comment">//spanNum.innerHTML = spanNum.innerHTML + 1; -&gt; 0111111...</span></span><br><span class="line">  spanNum.innerHTML++; <span class="comment">// 利用++自带转换数字</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 弊端：每次都需要把页面内容先转换成字符串，再累加并重新添加回去，会造成浏览器的重新渲染</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 5、利用自定义属性存储（推荐）</span></span><br><span class="line">oBtn.count = <span class="number">0</span>; <span class="comment">// oBtn的自定义属性，不是变量，没有作用域</span></span><br><span class="line">oBtn.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  spanNum.innerHTML = ++<span class="keyword">this</span>.count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="实战练习——累加器"><a href="#实战练习——累加器" class="headerlink" title="实战练习——累加器"></a>实战练习——累加器</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> oBtn = <span class="built_in">document</span>.getElementById(<span class="string">"btn"</span>);</span><br><span class="line"><span class="keyword">var</span> spanNum = <span class="built_in">document</span>.getElementById(<span class="string">"spanNum"</span>);</span><br><span class="line"><span class="comment">// 1、利用全局作用域不销毁的原理，把需要累加的数字定义为全局变量</span></span><br><span class="line"><span class="keyword">var</span> count = <span class="number">0</span>;</span><br><span class="line">oBtn.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  count++;</span><br><span class="line">  spanNum.innerHTML = count;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 弊端：容易造成项目中全局变量之间的冲突，一般禁止或减少使用全局变量</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2、自己形成一个不销毁的私有作用域来保存需要累加的数字</span></span><br><span class="line">~<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> count = <span class="number">0</span>;</span><br><span class="line">  oBtn.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    count++;</span><br><span class="line">    spanNum.innerHTML = count;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;();</span><br><span class="line"><span class="comment">//弊端：永远有一个不销毁的私有作用域占内存</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 3、原理同方法二，写法不同 return的函数被外界onclick接收，它和自执行函数都不销毁</span></span><br><span class="line">oBtn.onclick = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> count = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    count++;</span><br><span class="line">    spanNum.innerHTML = count;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)();</span><br><span class="line"><span class="comment">// 弊端：有一个不销毁的私有作用域，占内存</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 4、利用innerHTML的方式处理：每次点击先从页面中获取最新的值，然后累加，最后把累加结果重新放回去</span></span><br><span class="line">oBtn.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// spanNum.innerHTML获取页面内容返回的是字符串</span></span><br><span class="line">  <span class="comment">//spanNum.innerHTML = spanNum.innerHTML + 1; -&gt; 0111111...</span></span><br><span class="line">  spanNum.innerHTML++; <span class="comment">// 利用++自带转换数字</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 弊端：每次都需要把页面内容先转换成字符串，再累加并重新添加回去，会造成浏览器的重新渲染</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 5、利用自定义属性存储（推荐）</span></span><br><span class="line">oBtn.count = <span class="number">0</span>; <span class="comment">// oBtn的自定义属性，不是变量，没有作用域</span></span><br><span class="line">oBtn.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  spanNum.innerHTML = ++<span class="keyword">this</span>.count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
           
         
@@ -914,7 +1053,7 @@ var fn = function() {
               
                 <a href="/hexo-blog/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
