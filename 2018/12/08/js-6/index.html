@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/hexo-blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/hexo-blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/hexo-blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/hexo-blog/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/hexo-blog/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/hexo-blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/hexo-blog/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="数据绑定与DOM回流数据绑定方式：1.动态创建元素节点并追加到页面中优势：把需要动态创建的内容一个一个追加到页面中，对原来的元素没有影响弊端：浏览器每创建一个li就添加到页面中，就会引发一次DOM回流，影响性能123456789var oUl = document.getElementById(&quot;ul&quot;);var oList = oUl.getElemengtsByTagName(&quot;li&quot;);fo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS笔记（六）——数据绑定和DOM结构、正则">
+<meta property="og:url" content="http://yoursite.com/hexo-blog/2018/12/08/js-6/index.html">
+<meta property="og:site_name" content="Chimon&#39;s Blog">
+<meta property="og:description" content="数据绑定与DOM回流数据绑定方式：1.动态创建元素节点并追加到页面中优势：把需要动态创建的内容一个一个追加到页面中，对原来的元素没有影响弊端：浏览器每创建一个li就添加到页面中，就会引发一次DOM回流，影响性能123456789var oUl = document.getElementById(&quot;ul&quot;);var oList = oUl.getElemengtsByTagName(&quot;li&quot;);fo">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-12-08T16:01:24.926Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS笔记（六）——数据绑定和DOM结构、正则">
+<meta name="twitter:description" content="数据绑定与DOM回流数据绑定方式：1.动态创建元素节点并追加到页面中优势：把需要动态创建的内容一个一个追加到页面中，对原来的元素没有影响弊端：浏览器每创建一个li就添加到页面中，就会引发一次DOM回流，影响性能123456789var oUl = document.getElementById(&quot;ul&quot;);var oList = oUl.getElemengtsByTagName(&quot;li&quot;);fo">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/hexo-blog/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/hexo-blog/2018/12/08/js-6/">
+
+
+
+
+
+  <title>JS笔记（六）——数据绑定和DOM结构、正则 | Chimon's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/hexo-blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chimon's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/hexo-blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/hexo-blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/hexo-blog/hexo-blog/2018/12/08/js-6/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chimon.Z">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/hexo-blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chimon's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JS笔记（六）——数据绑定和DOM结构、正则</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-08T14:16:30+08:00">
+                2018-12-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="数据绑定与DOM回流"><a href="#数据绑定与DOM回流" class="headerlink" title="数据绑定与DOM回流"></a>数据绑定与DOM回流</h3><p>数据绑定方式：<br>1.动态创建元素节点并追加到页面中<br>优势：把需要动态创建的内容一个一个追加到页面中，对原来的元素没有影响<br>弊端：浏览器每创建一个li就添加到页面中，就会引发一次DOM回流，影响性能<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> oUl = <span class="built_in">document</span>.getElementById(<span class="string">"ul"</span>);</span><br><span class="line"><span class="keyword">var</span> oList = oUl.getElemengtsByTagName(<span class="string">"li"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;ary.length; i++) &#123;</span><br><span class="line">  <span class="keyword">var</span> cur = ary[i];</span><br><span class="line">  <span class="keyword">var</span> oLi = <span class="built_in">document</span>.createElement(<span class="string">"li"</span>);</span><br><span class="line">  oLi.innerHTML = <span class="string">"&lt;span&gt;"</span> + i + <span class="string">"&lt;/span&gt;"</span> + cur.title;</span><br><span class="line">  oUl.appendChild(oLi);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2.字符串拼接（字符串拼接会影响原先已有的元素，但是是模板引擎数据绑定的常用方式）<br>弊端：把新拼接的字符串添加到#ul中，原有的三个li的标签绑定的事件都消失了<br>优势：事先把内容拼接好，最后统一添加到页面中，只引发一次回流<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> oUl = <span class="built_in">document</span>.getElementById(<span class="string">"ul"</span>);</span><br><span class="line"><span class="keyword">var</span> oList = oUl.getElemengtsByTagName(<span class="string">"li"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> str = <span class="string">""</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;ary.length; i++) &#123;</span><br><span class="line">  <span class="keyword">var</span> cur = ary[i];</span><br><span class="line">  str += <span class="string">"&lt;li&gt;"</span>;</span><br><span class="line">  str += <span class="string">"&lt;span&gt;"</span> + i + <span class="string">"&lt;/span&gt;"</span>;</span><br><span class="line">  str += cur.title;</span><br><span class="line">  str += <span class="string">"&lt;/li&gt;"</span>;</span><br><span class="line">&#125;</span><br><span class="line">oUl.innerHTML += str;</span><br></pre></td></tr></table></figure></p>
+<p>DOM回流（重排 reflow）：当页面中的HTML结构发生改变（增加、删除元素，位置发生改变），浏览器都需要重新计算一遍最新的DOM结构，重新对当前页面进行渲染。应尽量减少DOM的回流<br>重绘：某一个元素的部分样式发生改变（e.g.背景颜色），浏览器只需要重新渲染当前元素即可</p>
+<p>3.文档碎片<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> frg = <span class="built_in">document</span>.createDocumentFragment(); <span class="comment">//-&gt; 创建一个文档碎片，相当于临时创建一个容器</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;ary.length; i++) &#123;</span><br><span class="line">  <span class="keyword">var</span> cur = ary[i];</span><br><span class="line">  <span class="keyword">var</span> oLi = <span class="built_in">document</span>.createElement(<span class="string">"li"</span>);</span><br><span class="line">  oLi.innerHTML = <span class="string">"&lt;span&gt;"</span> + i + <span class="string">"&lt;/span&gt;"</span> + cur.title;</span><br><span class="line">  frg.appendChild(oLi);</span><br><span class="line">&#125;</span><br><span class="line">oUl.appendChild(frg);</span><br><span class="line">frg = <span class="literal">null</span>; <span class="comment">// 手动释放堆内存</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>DOM映射机制：页面中的标签和JS中获取到的元素对象（元素集合）是紧紧绑定在一起的，<br>页面中的HTML结构改变，JS不需重新获取，集合内的内容也会跟着改变</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> oUl = <span class="built_in">document</span>.getElementById(<span class="string">"ul"</span>);</span><br><span class="line"><span class="keyword">var</span> oLis = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"li"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(oLis.length); <span class="comment">// -&gt;5</span></span><br><span class="line"><span class="keyword">var</span> oLi = <span class="built_in">document</span>.createElement(<span class="string">"li"</span>);</span><br><span class="line">oUl.appendChild(oLi);</span><br><span class="line"><span class="built_in">console</span>.log(oLis.length); <span class="comment">// -&gt;6 没有重新获取oLis，但长度改变了</span></span><br><span class="line"><span class="keyword">typeof</span> oLis[<span class="number">0</span>] <span class="comment">// object</span></span><br><span class="line">oLis[<span class="number">0</span>].style.background = <span class="string">"red"</span>; <span class="comment">//更改对象属性，HTML页面也会同时呈现</span></span><br></pre></td></tr></table></figure>
+<h3 id="正则"><a href="#正则" class="headerlink" title="正则"></a>正则</h3><h4 id="什么是正则：处理字符串的一种规则-对象"><a href="#什么是正则：处理字符串的一种规则-对象" class="headerlink" title="什么是正则：处理字符串的一种规则 (对象)"></a>什么是正则：处理字符串的一种规则 (对象)</h4><ol>
+<li>匹配 判断一个字符串是否符合制定的规则 -&gt; reg.test(str)</li>
+<li>捕获 获取符合规则的字符 -&gt; reg.exec(str)</li>
+</ol>
+<h4 id="如何创建一个正则"><a href="#如何创建一个正则" class="headerlink" title="如何创建一个正则"></a>如何创建一个正则</h4><ol>
+<li>字面量方式<br>var reg = /\d/;</li>
+<li>实例创建方式<br>var reg = new RegExp(“”);</li>
+</ol>
+<blockquote>
+<p>不同于创建数组和对象，正则的这两种方法有区别</p>
+</blockquote>
+<h4 id="如何学习"><a href="#如何学习" class="headerlink" title="如何学习"></a>如何学习</h4><p>面向对象思想<br>console.dir(RegExp.prototype);</p>
+<ol>
+<li>具有特殊意义的元字符<br>\：转义字符，转义后面字符所代表的含义 \d：0-9的数字<br>^：以某一个元字符开始，不占位<br>$：以某一个元字符结尾，不占位 /^\d$/：只能是1个0-9的数字 /^\d\d\d$/：只能是3个数字<br>\n：匹配一个换行符<br>.：除了\n以外的任意字符<br>()：分组 -&gt; 把一个大正则分成几个小正则<br>x|y： x或者y中的一个<br>[xyz]：x或y或z中的一个<br>[^xyz]：除了xyz三个以外的任何一个字符<br>[a-z]：a-z之间的任何一个字符<br>[^a-z]：除了a-z之间的任何一个字符<br>\d：一个0-9之间的数字<br>\D：除了0-9数字之外的任何字符<br>\b：匹配一个边界符，不占位  “w1 w2 w3”<br>\w：数字、字母、下划线中的任意一个字符 == [0-9a-zA-Z_]<br>\s：匹配一个空白字符：空格，制表符、换页符…</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/^0.2$/</span>;</span><br><span class="line"><span class="built_in">console</span>.log(reg.test(<span class="string">"0.2"</span>));  <span class="comment">//-&gt; true</span></span><br><span class="line"><span class="built_in">console</span>.log(reg.test(<span class="string">"0-2"</span>));  <span class="comment">//-&gt; true</span></span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/^0\.2$/</span>; <span class="comment">//转义</span></span><br><span class="line"><span class="built_in">console</span>.log(reg.test(<span class="string">"0.2"</span>));  <span class="comment">//-&gt; true</span></span><br><span class="line"><span class="built_in">console</span>.log(reg.test(<span class="string">"0-2"</span>));  <span class="comment">//-&gt; false</span></span><br><span class="line"><span class="comment">// 分组 ()</span></span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/^(\d+)john(\d+)/</span>;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>代表出现次数的量词元字符<br>*：出现零到多次<br>+：出现一到多次（至少出现一次）<br>?：出现零次或一次（出现/不出现）<br>{n}：出现n次<br>{n,}：出现n到多次<br>{n,m}：出现n到m次</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/^\d+$/ 出现一到多次数字  reg.test(<span class="string">"2015"</span>) <span class="comment">//-&gt; true</span></span><br><span class="line"><span class="comment">// 简单的验证手机号的正则，11位数字，以1开头</span></span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/^1\d&#123;10&#125;$/</span>;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/hexo-blog/2018/12/07/js-5/" rel="next" title="JS笔记（五）">
+                <i class="fa fa-chevron-left"></i> JS笔记（五）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Chimon.Z</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/hexo-blog/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据绑定与DOM回流"><span class="nav-number">1.</span> <span class="nav-text">数据绑定与DOM回流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正则"><span class="nav-number">2.</span> <span class="nav-text">正则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是正则：处理字符串的一种规则-对象"><span class="nav-number">2.1.</span> <span class="nav-text">什么是正则：处理字符串的一种规则 (对象)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何创建一个正则"><span class="nav-number">2.2.</span> <span class="nav-text">如何创建一个正则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何学习"><span class="nav-number">2.3.</span> <span class="nav-text">如何学习</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chimon.Z</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/hexo-blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/hexo-blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/hexo-blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/hexo-blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/hexo-blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/hexo-blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/hexo-blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/hexo-blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/hexo-blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/hexo-blog/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/hexo-blog/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
