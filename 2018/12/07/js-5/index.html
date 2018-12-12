@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="JavaScript,">
 
 
 
@@ -80,18 +80,19 @@
 
 
 <meta name="description" content="函数的三种角色函数本身会有一些自己的属性：  length: 形参的个数name: 函数名prototype: 类的原型，在原型上定义的方法都是当前Fn这个类实例的公有方法__proto__: 把函数当作一个普通对象，指向Function这个类的原型   一个函数存在多面性：“普通函数”：它本身就是一个普通函数，执行时形成私有作用域（闭包）、形参赋值、预解释、代码执行、执行完成后栈内存销毁/不销毁">
+<meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JS笔记（五）">
+<meta property="og:title" content="JS笔记（五）——函数和call">
 <meta property="og:url" content="http://yoursite.com/hexo-blog/2018/12/07/js-5/index.html">
 <meta property="og:site_name" content="Chimon&#39;s Blog">
 <meta property="og:description" content="函数的三种角色函数本身会有一些自己的属性：  length: 形参的个数name: 函数名prototype: 类的原型，在原型上定义的方法都是当前Fn这个类实例的公有方法__proto__: 把函数当作一个普通对象，指向Function这个类的原型   一个函数存在多面性：“普通函数”：它本身就是一个普通函数，执行时形成私有作用域（闭包）、形参赋值、预解释、代码执行、执行完成后栈内存销毁/不销毁">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/hexo-blog/2018/12/07/js-5/images/lesson2/5.png">
-<meta property="og:updated_time" content="2018-12-08T06:16:15.394Z">
+<meta property="og:image" content="http://yoursite.com/hexo-blog/images/lesson2/5.png">
+<meta property="og:updated_time" content="2018-12-12T08:57:39.128Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JS笔记（五）">
+<meta name="twitter:title" content="JS笔记（五）——函数和call">
 <meta name="twitter:description" content="函数的三种角色函数本身会有一些自己的属性：  length: 形参的个数name: 函数名prototype: 类的原型，在原型上定义的方法都是当前Fn这个类实例的公有方法__proto__: 把函数当作一个普通对象，指向Function这个类的原型   一个函数存在多面性：“普通函数”：它本身就是一个普通函数，执行时形成私有作用域（闭包）、形参赋值、预解释、代码执行、执行完成后栈内存销毁/不销毁">
-<meta name="twitter:image" content="http://yoursite.com/hexo-blog/2018/12/07/js-5/images/lesson2/5.png">
+<meta name="twitter:image" content="http://yoursite.com/hexo-blog/images/lesson2/5.png">
 
 
 
@@ -127,7 +128,7 @@
 
 
 
-  <title>JS笔记（五） | Chimon's Blog</title>
+  <title>JS笔记（五）——函数和call | Chimon's Blog</title>
   
 
 
@@ -192,6 +193,26 @@
         </li>
       
         
+        <li class="menu-item menu-item-tags">
+          <a href="/hexo-blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/hexo-blog/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
           <a href="/hexo-blog/archives/" rel="section">
             
@@ -251,7 +272,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">JS笔记（五）</h1>
+          <h1 class="post-title" itemprop="name headline">JS笔记（五）——函数和call</h1>
         
 
         <div class="post-meta">
@@ -273,6 +294,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/hexo-blog/categories/Notes/" itemprop="url" rel="index">
+                    <span itemprop="name">Notes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -305,7 +348,7 @@
 <blockquote>
 <p>length: 形参的个数<br>name: 函数名<br>prototype: 类的原型，在原型上定义的方法都是当前Fn这个类实例的公有方法<br>__proto__: 把函数当作一个普通对象，指向Function这个类的原型</p>
 </blockquote>
-<p><img src="./images/lesson2/5.png" alt=""></p>
+<p><img src="/hexo-blog/images/lesson2/5.png" alt=""></p>
 <h4 id="一个函数存在多面性："><a href="#一个函数存在多面性：" class="headerlink" title="一个函数存在多面性："></a>一个函数存在多面性：</h4><p>“普通函数”：它本身就是一个普通函数，执行时形成私有作用域（闭包）、形参赋值、预解释、代码执行、执行完成后栈内存销毁/不销毁</p>
 <p>“类”： 它有自己的实例，也有prototype属性 是自己的原型，它的实例都可以指向自己的原型</p>
 <p>“普通对象”：和var obj = {} 中的obj一样，就是一个普通的对象，它作为对象可以有自己私有的属性，也可以通过__proto__找到Function.prototype</p>
@@ -333,6 +376,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/hexo-blog/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+        </div>
       
 
       
@@ -439,7 +488,25 @@
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/hexo-blog/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/hexo-blog/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
             
 
           </nav>
@@ -554,6 +621,8 @@
   
 
 
+  
+
 
 
 
@@ -592,6 +661,11 @@
   
   
     <script type="text/javascript" src="/hexo-blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/hexo-blog/lib/canvas-nest/canvas-nest.min.js"></script>
   
 
 

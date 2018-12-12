@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="JavaScript,">
 
 
 
@@ -80,18 +80,19 @@
 
 
 <meta name="description" content="数据绑定与DOM回流数据绑定方式：1.动态创建元素节点并追加到页面中优势：把需要动态创建的内容一个一个追加到页面中，对原来的元素没有影响弊端：浏览器每创建一个li就添加到页面中，就会引发一次DOM回流，影响性能123456789var oUl = document.getElementById(&quot;ul&quot;);var oList = oUl.getElemengtsByTagName(&quot;li&quot;);fo">
+<meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JS笔记（六）——数据绑定和DOM结构">
 <meta property="og:url" content="http://yoursite.com/hexo-blog/2018/12/08/js-6/index.html">
 <meta property="og:site_name" content="Chimon&#39;s Blog">
 <meta property="og:description" content="数据绑定与DOM回流数据绑定方式：1.动态创建元素节点并追加到页面中优势：把需要动态创建的内容一个一个追加到页面中，对原来的元素没有影响弊端：浏览器每创建一个li就添加到页面中，就会引发一次DOM回流，影响性能123456789var oUl = document.getElementById(&quot;ul&quot;);var oList = oUl.getElemengtsByTagName(&quot;li&quot;);fo">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/hexo-blog/2018/12/08/js-6/images/lesson2/6.png">
-<meta property="og:updated_time" content="2018-12-12T07:52:49.304Z">
+<meta property="og:image" content="http://yoursite.com/hexo-blog/images/lesson2/6.png">
+<meta property="og:updated_time" content="2018-12-12T08:28:28.972Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JS笔记（六）——数据绑定和DOM结构">
 <meta name="twitter:description" content="数据绑定与DOM回流数据绑定方式：1.动态创建元素节点并追加到页面中优势：把需要动态创建的内容一个一个追加到页面中，对原来的元素没有影响弊端：浏览器每创建一个li就添加到页面中，就会引发一次DOM回流，影响性能123456789var oUl = document.getElementById(&quot;ul&quot;);var oList = oUl.getElemengtsByTagName(&quot;li&quot;);fo">
-<meta name="twitter:image" content="http://yoursite.com/hexo-blog/2018/12/08/js-6/images/lesson2/6.png">
+<meta name="twitter:image" content="http://yoursite.com/hexo-blog/images/lesson2/6.png">
 
 
 
@@ -192,6 +193,26 @@
         </li>
       
         
+        <li class="menu-item menu-item-tags">
+          <a href="/hexo-blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/hexo-blog/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
           <a href="/hexo-blog/archives/" rel="section">
             
@@ -274,6 +295,28 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/hexo-blog/categories/Notes/" itemprop="url" rel="index">
+                    <span itemprop="name">Notes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -322,8 +365,8 @@
 <li><p>Object.prototype.toString.call() 最准确和常用的方式<br>获取Object原型上的toString方法执行，并改变this指向<br>Number、String、Boolean、Array、RegExp、Date、Function原型上的toString方法都是吧当前的数据类型转换为字符串类型<br>但Object.prototype.toString不是用来转换字符串的，作用是返回当前方法执行主体（方法中的this）所属类的详细信息<br>var obj = {name: “john”};<br>obj.toString()  -&gt; “[object Object]”<br>Math.toString() -&gt; “[object Math]”<br>第一个object代表当前实例是对象数据类型的，第二个Object代表obj所属的类是Object</p>
 </li>
 </ol>
-<p><img src="./images/lesson2/6.png" alt=""></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">128</span>).toString(<span class="number">2</span>/<span class="number">8</span>/<span class="number">10</span>); <span class="comment">// Number原型上的toString方法是用来把数字转换成二进制、八进制、十进制</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call([])  <span class="comment">// -&gt; "[object Array]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="literal">null</span>) <span class="comment">// -&gt; "[object Null]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="regexp">/^$/</span>)  <span class="comment">// -&gt; "[object RegExp]"</span></span><br><span class="line">(&#123;&#125;).toString.call(<span class="keyword">new</span> <span class="built_in">Date</span>)  <span class="comment">// -&gt; "[object Date]"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> ary = [];</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.toString.call(ary) === <span class="string">"[object Array]"</span>) <span class="comment">// true</span></span><br><span class="line"><span class="comment">// 正则方式检测</span></span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/^\[object Array\]$/</span>;</span><br><span class="line"><span class="built_in">console</span>.log(reg.test(<span class="built_in">Object</span>.prototype.toString.call(ary)));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 前面的错误</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> ary = <span class="keyword">new</span> <span class="built_in">Array</span>;</span><br><span class="line">Fn.prototype = ary; <span class="comment">// 原型继承，子类的原型等于父类的一个实例</span></span><br><span class="line"><span class="keyword">var</span> f = <span class="keyword">new</span> Fn;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.toString.call(f) === <span class="string">"[object Array]"</span>); <span class="comment">// -&gt; false</span></span><br></pre></td></tr></table></figure>
+<p><img src="/hexo-blog/images/lesson2/6.png" alt=""></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">128</span>).toString(<span class="number">2</span>/<span class="number">8</span>/<span class="number">10</span>); <span class="comment">// Number原型上的toString方法是用来把数字转换成二进制、八进制、十进制</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call([])  <span class="comment">// -&gt; "[object Array]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="literal">null</span>) <span class="comment">// -&gt; "[object Null]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="regexp">/^$/</span>)  <span class="comment">// -&gt; "[object RegExp]"</span></span><br><span class="line">(&#123;&#125;).toString.call(<span class="keyword">new</span> <span class="built_in">Date</span>)  <span class="comment">// -&gt; "[object Date]"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> ary = [];</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.toString.call(ary) === <span class="string">"[object Array]"</span>) <span class="comment">// true</span></span><br><span class="line"><span class="comment">// 正则方式检测</span></span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/^\[object Array\]$/</span>;</span><br><span class="line"><span class="built_in">console</span>.log(reg.test(<span class="built_in">Object</span>.prototype.toString.call(ary)));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 前面的错误</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> ary = <span class="keyword">new</span> <span class="built_in">Array</span>;</span><br><span class="line">Fn.prototype = ary; <span class="comment">// 原型继承，子类的原型等于父类的一个实例</span></span><br><span class="line"><span class="keyword">var</span> f = <span class="keyword">new</span> Fn;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.toString.call(f) === <span class="string">"[object Array]"</span>); <span class="comment">// -&gt;</span></span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -338,6 +381,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/hexo-blog/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+        </div>
+      
 
       
       
@@ -347,8 +396,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/hexo-blog/2018/12/07/js-5/" rel="next" title="JS笔记（五）">
-                <i class="fa fa-chevron-left"></i> JS笔记（五）
+              <a href="/hexo-blog/2018/12/07/js-5/" rel="next" title="JS笔记（五）——函数和call">
+                <i class="fa fa-chevron-left"></i> JS笔记（五）——函数和call
               </a>
             
           </div>
@@ -443,7 +492,25 @@
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/hexo-blog/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/hexo-blog/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
             
 
           </nav>
@@ -558,6 +625,8 @@
   
 
 
+  
+
 
 
 
@@ -596,6 +665,11 @@
   
   
     <script type="text/javascript" src="/hexo-blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/hexo-blog/lib/canvas-nest/canvas-nest.min.js"></script>
   
 
 
