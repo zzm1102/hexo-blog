@@ -229,6 +229,195 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/hexo-blog/hexo-blog/2018/12/10/js-7/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chimon.Z">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/hexo-blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chimon's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/hexo-blog/2018/12/10/js-7/" itemprop="url">JS笔记（七）——正则</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-10T18:09:33+08:00">
+                2018-12-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="什么是正则：处理字符串的一种规则-对象"><a href="#什么是正则：处理字符串的一种规则-对象" class="headerlink" title="什么是正则：处理字符串的一种规则 (对象)"></a>什么是正则：处理字符串的一种规则 (对象)</h4><ol>
+<li>匹配 判断一个字符串是否符合制定的规则 -&gt; reg.test(str)</li>
+<li>捕获 获取符合规则的字符 -&gt; reg.exec(str)</li>
+</ol>
+<h4 id="如何创建一个正则"><a href="#如何创建一个正则" class="headerlink" title="如何创建一个正则"></a>如何创建一个正则</h4><ol>
+<li>字面量方式<br>var reg = /\d/;</li>
+<li>实例创建方式<br>var reg = new RegExp(“”);</li>
+</ol>
+<blockquote>
+<p>不同于创建数组和对象，正则的这两种方法有区别<br>1）字面量方式中出现的一切都是元字符，不能进行变量拼接，实例方式可以<br>2）字面量方式中直接写\d即可，实例中需要\d 转义<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">"john"</span>;</span><br><span class="line"><span class="comment">// var reg = /^\d+"+name+"\d+$/g; 不可以</span></span><br><span class="line"><span class="keyword">var</span> reg = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">"^\\d+"</span> + name + <span class="string">"\\d+$"</span>, <span class="string">"g"</span>) <span class="comment">// \d在字符串中需要再次转义</span></span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h4 id="如何学习"><a href="#如何学习" class="headerlink" title="如何学习"></a>如何学习</h4><p>面向对象思想<br>console.dir(RegExp.prototype);</p>
+<ol>
+<li>具有特殊意义的元字符<br>\：转义字符，转义后面字符所代表的含义 \d：0-9的数字<br>^：以某一个元字符开始，不占位<br>$：以某一个元字符结尾，不占位 /^\d$/：只能是1个0-9的数字 /^\d\d\d$/：只能是3个数字<br>\n：匹配一个换行符<br>.：除了\n以外的任意字符<br>()：分组 -&gt; 把一个大正则分成几个小正则<br>x|y： x或者y中的一个<br>[xyz]：x或y或z中的一个<br>[^xyz]：除了xyz三个以外的任何一个字符<br>[a-z]：a-z之间的任何一个字符<br>[^a-z]：除了a-z之间的任何一个字符<br>\d：一个0-9之间的数字 [0-9]<br>\D：除了0-9数字之外的任何字符<br>\b：匹配一个边界符，不占位  “w1 w2 w3”<br>\w：数字、字母、下划线中的任意一个字符 == [0-9a-zA-Z_]<br>\s：匹配一个空白字符：空格，制表符、换页符…</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/^0.2$/</span>;</span><br><span class="line"><span class="built_in">console</span>.log(reg.test(<span class="string">"0.2"</span>));  <span class="comment">//-&gt; true</span></span><br><span class="line"><span class="built_in">console</span>.log(reg.test(<span class="string">"0-2"</span>));  <span class="comment">//-&gt; true</span></span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/^0\.2$/</span>; <span class="comment">//转义</span></span><br><span class="line"><span class="built_in">console</span>.log(reg.test(<span class="string">"0.2"</span>));  <span class="comment">//-&gt; true</span></span><br><span class="line"><span class="built_in">console</span>.log(reg.test(<span class="string">"0-2"</span>));  <span class="comment">//-&gt; false</span></span><br><span class="line"><span class="comment">// 分组 ()</span></span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/^(\d+)john(\d+)/</span>;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><p>代表出现次数的量词元字符<br>*：出现零到多次<br>+：出现一到多次（至少出现一次）<br>?：出现零次或一次（出现/不出现）<br>{n}：出现n次<br>{n,}：出现n到多次<br>{n,m}：出现n到m次</p>
+</li>
+<li><p>修饰符：g, i, m<br>g (global): 全局匹配<br>i (ignoreCase): 忽略大小写<br>m (multiline): 多行匹配</p>
+</li>
+</ol>
+<h5 id="规律："><a href="#规律：" class="headerlink" title="规律："></a>规律：</h5><ol>
+<li>[]中出现的字符都是本身，不代表特殊含义</li>
+<li>[]不识别两位数  /^[12]$/ -&gt; 1or2  /^[12-68]$/ -&gt;1、2-6中的一个、8 这三者中的一个<br>var reg = /^[.]$/<br>reg.test(“1”); // false<br>reg.test(“.”); // true</li>
+<li>| 或的优先级很低，需要()改变优先级<br> var reg = /^18|19$/; // 18、19、181、189、119、819…<br> var reg = /^(18|19)$/; // 18、19</li>
+<li>分组的作用：改变优先级、分组引用</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">/^\d+$/ 出现一到多次数字  reg.test(<span class="string">"2015"</span>) <span class="comment">//-&gt; true</span></span><br><span class="line"><span class="comment">// 简单的验证手机号的正则，11位数字，以1开头</span></span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/^1\d&#123;10&#125;$/</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 练习：</span></span><br><span class="line"><span class="comment">// 1. 有效数字的正则： 正数、负数、零、小数</span></span><br><span class="line"><span class="comment">// 1)"."可以出现也可以不出现，但一旦出现，后面必须有一位或多位数字  (\.\d+)?</span></span><br><span class="line"><span class="comment">// 2)最开始可以有+/-，也可以没有  ^[+-]?</span></span><br><span class="line"><span class="comment">// 3)整数部分，一位数可以是0-9任意，多位数不能以0开头  \d|([1-9]\d+)</span></span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/^[+-]?(\d|([1-9]\d+))(\.\d+)?$/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 年龄介于18-65之间  分组 18-19 20-59 60-65</span></span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/^1[8-9]|[2-5]\d|6[0-5]$/</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 验证邮箱的正则 a_10.-A@xxx.com.cn</span></span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/^[\w.-]+@[0-9a-zA-Z]+(\.[0-9a-zA-Z]&#123;2,4&#125;)&#123;1,2&#125;$/</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. 中国标准真实姓名 2-4位汉字</span></span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/^[\u4e00-\u9fa5]&#123;2,4&#125;$/</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 5. 身份证号码： 18位，最后是数字或大写X /^\d&#123;17&#125;(\d|X)$/</span></span><br><span class="line"><span class="comment">// 实际情况 13 0828 1990 12 04 06 1 7</span></span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/^(\d&#123;2&#125;)(\d&#123;4&#125;)(\d&#123;4&#125;)(\d&#123;2&#125;)(\d&#123;2&#125;)(?:\d&#123;2&#125;)(\d)(?:\d|X)$/</span>  <span class="comment">// ?: 只匹配，不捕获</span></span><br><span class="line"><span class="keyword">var</span> str = <span class="string">"130828199012040617"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(reg.exec(str)); </span><br><span class="line"><span class="comment">//-&gt; ["130828199012040617", "13", "0828", "1990", "12", "04", "1", index: 0, input: "130828199012040617", groups: undefined]</span></span><br><span class="line"><span class="built_in">console</span>.log(str.match(reg)); <span class="comment">// 同上</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// exec和match区别</span></span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/john(\d+)/g</span>;</span><br><span class="line"><span class="keyword">var</span> str = <span class="string">"john12john344john546"</span>;</span><br><span class="line"><span class="comment">// exec执行三次，每次都能分别捕捉到大正则和第一个分组匹配的内容</span></span><br><span class="line"><span class="built_in">console</span>.log(reg.exec(str));  <span class="comment">// -&gt; ["john12", "12"...]</span></span><br><span class="line"><span class="built_in">console</span>.log(reg.exec(str));  <span class="comment">// -&gt; ["john344", "344"...]</span></span><br><span class="line"><span class="built_in">console</span>.log(reg.exec(str));  <span class="comment">// -&gt; ["john546", "546"...]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// match只能捕获到大正则匹配的内容</span></span><br><span class="line"><span class="built_in">console</span>.log(str.match(reg)); <span class="comment">// -&gt; ["john12", "john344", "john546"]</span></span><br></pre></td></tr></table></figure>
+<h4 id="exec-gt-正则的捕获"><a href="#exec-gt-正则的捕获" class="headerlink" title="exec -&gt; 正则的捕获"></a>exec -&gt; 正则的捕获</h4><h5 id="捕获的内容格式"><a href="#捕获的内容格式" class="headerlink" title="捕获的内容格式"></a>捕获的内容格式</h5><p>每次捕获先进行默认匹配，没有匹配成功结果为null，只有匹配的内容才能捕捉到</p>
+<ol>
+<li><p>捕获的内容是一个数组，数组第一项是当前大正则捕获的内容<br>index：捕获内容在字符串中开始的索引位置<br>input：捕获的原始字符串</p>
+</li>
+<li><p>正则捕获的特点<br>1) 懒惰性 -&gt; 每次执行只捕获第一个匹配内容，不进行处理的情况下执行多次捕获，结果还是第一个匹配内容<br>lastIndex: 正则每次捕获在字符串中开始查找的位置，默认值0<br>2）如何解决懒惰性：在正则末尾加修饰符“g”<br> 原理：加了全局修饰符g，正则每次捕获后lastIndex值变为最新的值，下次捕获从最新位置开始查找<br>3）正则的贪婪性：每次捕获匹配最长的结果 e.g. 1和18都符合正则，捕获的是18<br>4）如何解决贪婪性 -&gt; 在量词元字符后加“?”  var reg = /\d+?/g;</p>
+</li>
+</ol>
+<blockquote>
+<p>?在正则中的作用<br>普通元字符后：出现0-1次 /\d?/ -&gt; 数字可能出现也可能不出现<br>量词元字符后：取消捕获的贪婪性</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/\d+/g</span>;</span><br><span class="line"><span class="keyword">var</span> str = <span class="string">"john18lily24"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(reg.lastIndex); <span class="comment">// -&gt; 0</span></span><br><span class="line"><span class="built_in">console</span>.log(reg.exec(str); <span class="comment">// -&gt; ["18"...]</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(reg.lastIndex); <span class="comment">// -&gt; 6</span></span><br><span class="line"><span class="built_in">console</span>.log(reg.exec(str); <span class="comment">// -&gt; ["24"...]</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(reg.lastIndex); <span class="comment">// -&gt; 12</span></span><br><span class="line"><span class="built_in">console</span>.log(reg.exec(str); <span class="comment">// -&gt; null</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 捕获所有内容</span></span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/\d+/g</span>;</span><br><span class="line"><span class="keyword">var</span> str = <span class="string">"john18lily24"</span>;</span><br><span class="line"><span class="keyword">var</span> ary = [];</span><br><span class="line"><span class="keyword">var</span> res = reg.exec(str);</span><br><span class="line"><span class="keyword">while</span>(res) &#123;</span><br><span class="line">  ary.push(res[<span class="number">0</span>]);</span><br><span class="line">  res = reg.exec(str);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(ary);</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>字符串中的match方法 -&gt; 吧所有和正则匹配的字符串都捕获<blockquote>
+<p>分组捕获时不好用，无法捕获小正则内容<br>(?:)：在分组中，?:代表只匹配不捕获</p>
+</blockquote>
+</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/\d+?/g</span>;</span><br><span class="line"><span class="keyword">var</span> str = <span class="string">"john18lily24"</span>;</span><br><span class="line"><span class="keyword">var</span> ary = str.match(reg);</span><br><span class="line"><span class="built_in">console</span>.log(ary); <span class="comment">// -&gt; ["1", "8", "2", "4"]</span></span><br></pre></td></tr></table></figure>
+<h4 id="正则分组"><a href="#正则分组" class="headerlink" title="正则分组"></a>正则分组</h4><ol>
+<li>改变优先级</li>
+<li>分组引用<br>\1代表和第二个分组一样的内容，\2代表和第二个分组一样的内容</li>
+<li>分组捕获</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 分组引用示例</span></span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/^(\w)\1(\w)\2$/</span>;</span><br><span class="line"><span class="built_in">console</span>.log(reg.test(<span class="string">"zzff"</span>)); <span class="comment">// -&gt;true</span></span><br><span class="line"><span class="built_in">console</span>.log(reg.test(<span class="string">"dd22"</span>)); <span class="comment">// -&gt;true</span></span><br><span class="line"><span class="built_in">console</span>.log(reg.test(<span class="string">"zz2f"</span>)); <span class="comment">// -&gt;false</span></span><br></pre></td></tr></table></figure>
+<h4 id="replace-把原有的字符替换成新的字符"><a href="#replace-把原有的字符替换成新的字符" class="headerlink" title="replace:把原有的字符替换成新的字符"></a>replace:把原有的字符替换成新的字符</h4><p>在不使用正则的情况下，每执行一次只能替换一个字符<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str = <span class="string">"james2015james2018"</span>;</span><br><span class="line">str = str.replace(<span class="string">"james"</span>, <span class="string">"jamesaaa"</span>).replace(<span class="string">"james"</span>, <span class="string">"jamesaaa"</span>);</span><br><span class="line"><span class="comment">// "jamesaaaaaa2015james2018" 多次执行每次都从0位置开始</span></span><br><span class="line"><span class="comment">//正则方法</span></span><br><span class="line">str = str.replace(<span class="regexp">/james/g</span>, <span class="string">"jamesaaa"</span>);</span><br><span class="line"><span class="comment">//第二个参数换成函数</span></span><br><span class="line"><span class="comment">// 1）匿名函数执行多少次取决于正则的捕获次数</span></span><br><span class="line"><span class="comment">// 2）每次执行匿名函数，arguments参数值和exec捕获到的结果类似（分组也能捕获）</span></span><br><span class="line"><span class="comment">// 3）return返回你想替换的字符串，否则替换为undefined，不想替换return arguments[0]</span></span><br><span class="line">str = str.replace(<span class="regexp">/james/g</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">arguments</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">arguments</span>[<span class="number">0</span>]); <span class="comment">// 每次捕获到的内容</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">RegExp</span>.$<span class="number">1</span>); <span class="comment">// 获取第一个分组捕获的内容</span></span><br><span class="line">  <span class="keyword">return</span> <span class="string">"jamesaaa"</span>;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// arguments[0]  exec捕获数组的第一项 -&gt; 大正则捕获的内容</span></span><br><span class="line"><span class="comment">// arguments[1]  exec捕获数组的index -&gt; 开始捕获的索引</span></span><br><span class="line"><span class="comment">// arguments[2]  exec捕获数组的input -&gt; 捕获的原始字符串</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="正则练习："><a href="#正则练习：" class="headerlink" title="正则练习："></a>正则练习：</h4><ol>
+<li><p>替换</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str = <span class="string">"20181203"</span>; <span class="comment">// -&gt; "贰零壹捌壹贰零叁"</span></span><br><span class="line"><span class="keyword">var</span> ary = [<span class="string">"零"</span>, <span class="string">"壹"</span>, <span class="string">"贰"</span>, <span class="string">"叁"</span>, <span class="string">"肆"</span>, <span class="string">"伍"</span>, <span class="string">"陆"</span>, <span class="string">"柒"</span>, <span class="string">"捌"</span>, <span class="string">"玖"</span>]</span><br><span class="line">str = str.replace(<span class="regexp">/\d/g</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// var num = arguments[0];</span></span><br><span class="line">  <span class="comment">// var str = ary[num];</span></span><br><span class="line">  <span class="comment">// return str;</span></span><br><span class="line">  <span class="keyword">return</span> ary[<span class="built_in">arguments</span>[<span class="number">0</span>]];</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取一个字符串中出现次数最多的字符，并且获取出现次数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str = <span class="string">"jintiantianqizhenhaoa"</span>;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;&#125;;</span><br><span class="line"><span class="comment">// 1)用对象存储每一个字符出现的次数</span></span><br><span class="line">str.replace(<span class="regexp">/[a-z]/gi</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> val = <span class="built_in">arguments</span>[<span class="number">0</span>];</span><br><span class="line">  obj[val] &gt;= <span class="number">1</span> ? obj[val] += <span class="number">1</span> : obj[val] = <span class="number">1</span>;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 2)获取最多出现的次数</span></span><br><span class="line"><span class="keyword">var</span> maxNum = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> obj) &#123;</span><br><span class="line">  obj[key] &gt; maxNum ? maxNum = obj[key] : <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//3)把所有符合出现maxNum次数的都获取到</span></span><br><span class="line"><span class="keyword">var</span> ary = [];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> obj) &#123;</span><br><span class="line">  obj[key] === maxNum ? ary.push(key) : <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"出现最多的字符是："</span> + ary.toString() + <span class="string">"~出现了"</span> </span><br><span class="line">+ maxNum + <span class="string">"次~"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>模板引擎实现的初步原理</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str = <span class="string">"my name is &#123;0&#125;, my age is &#123;1&#125;, I come from &#123;2&#125;, I love &#123;3&#125;~"</span>;</span><br><span class="line"><span class="keyword">var</span> ary = [<span class="string">"James"</span>, <span class="string">"20"</span>, <span class="string">"China"</span>, <span class="string">"my cats"</span>];</span><br><span class="line">str = str.replace(<span class="regexp">/&#123;(\d+)&#125;/g</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">arguments</span>)</span><br><span class="line">  <span class="keyword">return</span> ary[<span class="built_in">arguments</span>[<span class="number">1</span>]]; <span class="comment">// RegExp.$1 IE不兼容</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取url中的参数，并保存成对象格式</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str = <span class="string">"https://www.baidu.com/kbsweb/game.html?mid=10000&amp;cid=1232445&amp;app=2.0"</span>;</span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/([^?=&amp;]+)=([^?=&amp;]+)/g</span>;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;&#125;;</span><br><span class="line"><span class="comment">// var res = reg.exec(str);</span></span><br><span class="line"><span class="comment">// while (res) &#123;</span></span><br><span class="line"><span class="comment">//   obj[res[1]] = res[2];</span></span><br><span class="line"><span class="comment">//   res = reg.exec(str);</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line">str.replace(reg, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  obj[<span class="built_in">arguments</span>[<span class="number">1</span>]] = <span class="built_in">arguments</span>[<span class="number">2</span>];</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(obj);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>时间字符串格式化</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str = <span class="string">"2018-9-3 14:53:00"</span>;</span><br><span class="line"><span class="comment">// 2018年09月03日 14时53分00秒</span></span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/^(\d&#123;4&#125;)[-/](\d&#123;1,2&#125;)[-/](\d&#123;1,2&#125;) +(\d&#123;1,2&#125;):(\d&#123;1,2&#125;):(\d&#123;1,2&#125;)$/g</span>;</span><br><span class="line"><span class="keyword">var</span> resStr = <span class="string">"&#123;0&#125;年&#123;1&#125;月&#123;2&#125;日 &#123;3&#125;时&#123;4&#125;分&#123;5&#125;秒"</span>;</span><br><span class="line"><span class="keyword">var</span> ary = [];</span><br><span class="line">str.replace(reg, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  ary = ([].slice.call(<span class="built_in">arguments</span>)).slice(<span class="number">1</span>,<span class="number">7</span>);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/&#123;(\d+)&#125;/g</span>;</span><br><span class="line">resStr = resStr.replace(reg, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> num = <span class="built_in">arguments</span>[<span class="number">1</span>], val=ary[num];</span><br><span class="line">  val.length === <span class="number">1</span> ? val = <span class="string">"0"</span> + val : <span class="keyword">void</span> <span class="number">0</span> ;</span><br><span class="line">  <span class="keyword">return</span> val;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 封装成方法</span></span><br><span class="line"><span class="built_in">String</span>.prototype.myFormatTime = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> reg = <span class="regexp">/^(\d&#123;4&#125;)(?:-|\/|\.|:)(\d&#123;1,2&#125;)(?:-|\/|\.|:)(\d&#123;1,2&#125;)(?:\s+)(\d&#123;1,2&#125;)(?:-|\/|\.|:)(\d&#123;1,2&#125;)(?:-|\/|\.|:)(\d&#123;1,2&#125;)$/g</span>;</span><br><span class="line">  <span class="keyword">var</span> ary = [];</span><br><span class="line">  <span class="keyword">this</span>.replace(reg, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    ary = ([].slice.call(<span class="built_in">arguments</span>)).slice(<span class="number">1</span>,<span class="number">7</span>);</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">var</span> format = <span class="built_in">arguments</span>[<span class="number">0</span>] || <span class="string">"&#123;0&#125;年&#123;1&#125;月&#123;2&#125;日 &#123;3&#125;:&#123;4&#125;:&#123;5&#125;"</span>;</span><br><span class="line">  <span class="keyword">return</span> format.replace(<span class="regexp">/&#123;(\d+)&#125;/g</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> val = ary[<span class="built_in">arguments</span>[<span class="number">1</span>]];</span><br><span class="line">    <span class="keyword">return</span> val.length === <span class="number">1</span> ? <span class="string">"0"</span> + val : val;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/hexo-blog/hexo-blog/2018/12/08/js-6/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -248,7 +437,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/hexo-blog/2018/12/08/js-6/" itemprop="url">JS笔记（六）——数据绑定和DOM结构、正则</a></h1>
+                <a class="post-title-link" href="/hexo-blog/2018/12/08/js-6/" itemprop="url">JS笔记（六）——数据绑定和DOM结构</a></h1>
         
 
         <div class="post-meta">
@@ -308,32 +497,21 @@
 <p>DOM映射机制：页面中的标签和JS中获取到的元素对象（元素集合）是紧紧绑定在一起的，<br>页面中的HTML结构改变，JS不需重新获取，集合内的内容也会跟着改变</p>
 </blockquote>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> oUl = <span class="built_in">document</span>.getElementById(<span class="string">"ul"</span>);</span><br><span class="line"><span class="keyword">var</span> oLis = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"li"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(oLis.length); <span class="comment">// -&gt;5</span></span><br><span class="line"><span class="keyword">var</span> oLi = <span class="built_in">document</span>.createElement(<span class="string">"li"</span>);</span><br><span class="line">oUl.appendChild(oLi);</span><br><span class="line"><span class="built_in">console</span>.log(oLis.length); <span class="comment">// -&gt;6 没有重新获取oLis，但长度改变了</span></span><br><span class="line"><span class="keyword">typeof</span> oLis[<span class="number">0</span>] <span class="comment">// object</span></span><br><span class="line">oLis[<span class="number">0</span>].style.background = <span class="string">"red"</span>; <span class="comment">//更改对象属性，HTML页面也会同时呈现</span></span><br></pre></td></tr></table></figure>
-<h3 id="正则"><a href="#正则" class="headerlink" title="正则"></a>正则</h3><h4 id="什么是正则：处理字符串的一种规则-对象"><a href="#什么是正则：处理字符串的一种规则-对象" class="headerlink" title="什么是正则：处理字符串的一种规则 (对象)"></a>什么是正则：处理字符串的一种规则 (对象)</h4><ol>
-<li>匹配 判断一个字符串是否符合制定的规则 -&gt; reg.test(str)</li>
-<li>捕获 获取符合规则的字符 -&gt; reg.exec(str)</li>
+<h4 id="数据类型检测的四种方式"><a href="#数据类型检测的四种方式" class="headerlink" title="数据类型检测的四种方式"></a>数据类型检测的四种方式</h4><ol>
+<li><p>type of 用来检测数据类型的运算符<br>console.log(typeof 12) // -&gt; “number”<br>使用typeof检测数据类型，返回的是一个字符串，字符串中包含对应的数据类型<br>类型：”number”, “string”, “boolean”, “undefined”, “function”, “object”<br>局限性：<br>typeof null -&gt; “object” null是空对象指针，不是对象<br>不能具体细分数组、正则或对象中的其他值，都会返回object</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> (<span class="params">num1, num2</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(<span class="keyword">typeof</span> num2 === <span class="string">"undefined"</span>) &#123;</span><br><span class="line">    num2 = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 也可以写成</span></span><br><span class="line">  num2 = num2 || <span class="number">0</span>; <span class="comment">// 不能传false || "" 这样的参数</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">callback</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">typeof</span> callback === <span class="string">"function"</span> ? callback() : <span class="literal">null</span>;</span><br><span class="line">  callback &amp;&amp; callback();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>instanceof 检测某一个实例是否属于某个类</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = [<span class="number">12</span>, <span class="number">13</span>];</span><br><span class="line"><span class="built_in">console</span>.log(obj <span class="keyword">instanceof</span> <span class="built_in">Array</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(obj <span class="keyword">instanceof</span> <span class="built_in">RegExp</span>); <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 局限性</span></span><br><span class="line"><span class="comment">//1. 对于基本数据类型，字面量方式创建的结果和实例方式创建的结果有区别</span></span><br><span class="line"><span class="comment">// 严格意义说，只有实例创建的才是标准对象，</span></span><br><span class="line"><span class="comment">// 字面量方式是基本的数据类型值，不是严谨的实例，但由于JS松散的特点，可以使用Number.prototype上的方法</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="number">1</span> <span class="comment">// -&gt; "number"</span></span><br><span class="line"><span class="keyword">typeof</span> <span class="keyword">new</span> <span class="built_in">Number</span>(<span class="number">1</span>)  <span class="comment">//-&gt; "object"</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span> <span class="keyword">instanceof</span> <span class="built_in">Number</span>); <span class="comment">//false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">new</span> <span class="built_in">Number</span>(<span class="number">1</span>) <span class="keyword">instanceof</span> <span class="built_in">Number</span>); <span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">""</span> <span class="keyword">instanceof</span> <span class="built_in">String</span>); <span class="comment">//false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="literal">true</span> <span class="keyword">instanceof</span> <span class="built_in">Boolean</span>); <span class="comment">//false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//2. 特性：只要在当前实例的原型链上，检测结果都为true</span></span><br><span class="line"><span class="comment">// 在类的原型继承中，检测结果不准确</span></span><br><span class="line"><span class="keyword">var</span> ary = [];</span><br><span class="line"><span class="built_in">console</span>.log(ary <span class="keyword">instanceof</span> <span class="built_in">Array</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(ary <span class="keyword">instanceof</span> <span class="built_in">Object</span>); <span class="comment">// true</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> ary = <span class="keyword">new</span> <span class="built_in">Array</span>;</span><br><span class="line">Fn.prototype = ary; <span class="comment">// 原型继承，子类的原型等于父类的一个实例</span></span><br><span class="line"><span class="keyword">var</span> f = <span class="keyword">new</span> Fn;</span><br><span class="line"><span class="built_in">console</span>.log(f <span class="keyword">instanceof</span> <span class="built_in">Array</span>); <span class="comment">// true 但f不应该是数组</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>constructor 构造函数 作用和 instanceof 非常相似</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ary = [];</span><br><span class="line"><span class="built_in">console</span>.log(ary.constructor === <span class="built_in">Array</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(ary.constructor === <span class="built_in">RegExp</span>); <span class="comment">// false</span></span><br><span class="line"><span class="comment">// constructor检测Object和instanceof不一样，一般是检测不了的</span></span><br><span class="line"><span class="built_in">console</span>.log(ary.constructor === <span class="built_in">Object</span>); <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// constructor可以处理基本数据类型</span></span><br><span class="line"><span class="built_in">console</span>.log((<span class="number">1</span>).constructor === <span class="built_in">Number</span>); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 局限性：</span></span><br><span class="line"><span class="comment">// 我们可以重写累的原型，在重写过程中很有可能把之前的constructor覆盖，这样检测结果不准确</span></span><br><span class="line"><span class="comment">// 对于特殊数据类型null和undefined，所属类是Null和Undefined，但浏览器保护，不允许在外面访问使用</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> ary = <span class="keyword">new</span> <span class="built_in">Array</span>;</span><br><span class="line">Fn.prototype = ary; <span class="comment">// 原型继承，子类的原型等于父类的一个实例</span></span><br><span class="line"><span class="keyword">var</span> f = <span class="keyword">new</span> Fn;</span><br><span class="line"><span class="built_in">console</span>.log(f.constructor); <span class="comment">// -&gt; Array</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Object.prototype.toString.call() 最准确和常用的方式<br>获取Object原型上的toString方法执行，并改变this指向<br>Number、String、Boolean、Array、RegExp、Date、Function原型上的toString方法都是吧当前的数据类型转换为字符串类型<br>但Object.prototype.toString不是用来转换字符串的，作用是返回当前方法执行主体（方法中的this）所属类的详细信息<br>var obj = {name: “john”};<br>obj.toString()  -&gt; “[object Object]”<br>Math.toString() -&gt; “[object Math]”<br>第一个object代表当前实例是对象数据类型的，第二个Object代表obj所属的类是Object</p>
+</li>
 </ol>
-<h4 id="如何创建一个正则"><a href="#如何创建一个正则" class="headerlink" title="如何创建一个正则"></a>如何创建一个正则</h4><ol>
-<li>字面量方式<br>var reg = /\d/;</li>
-<li>实例创建方式<br>var reg = new RegExp(“”);</li>
-</ol>
-<blockquote>
-<p>不同于创建数组和对象，正则的这两种方法有区别</p>
-</blockquote>
-<h4 id="如何学习"><a href="#如何学习" class="headerlink" title="如何学习"></a>如何学习</h4><p>面向对象思想<br>console.dir(RegExp.prototype);</p>
-<ol>
-<li>具有特殊意义的元字符<br>\：转义字符，转义后面字符所代表的含义 \d：0-9的数字<br>^：以某一个元字符开始，不占位<br>$：以某一个元字符结尾，不占位 /^\d$/：只能是1个0-9的数字 /^\d\d\d$/：只能是3个数字<br>\n：匹配一个换行符<br>.：除了\n以外的任意字符<br>()：分组 -&gt; 把一个大正则分成几个小正则<br>x|y： x或者y中的一个<br>[xyz]：x或y或z中的一个<br>[^xyz]：除了xyz三个以外的任何一个字符<br>[a-z]：a-z之间的任何一个字符<br>[^a-z]：除了a-z之间的任何一个字符<br>\d：一个0-9之间的数字 [0-9]<br>\D：除了0-9数字之外的任何字符<br>\b：匹配一个边界符，不占位  “w1 w2 w3”<br>\w：数字、字母、下划线中的任意一个字符 == [0-9a-zA-Z_]<br>\s：匹配一个空白字符：空格，制表符、换页符…</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/^0.2$/</span>;</span><br><span class="line"><span class="built_in">console</span>.log(reg.test(<span class="string">"0.2"</span>));  <span class="comment">//-&gt; true</span></span><br><span class="line"><span class="built_in">console</span>.log(reg.test(<span class="string">"0-2"</span>));  <span class="comment">//-&gt; true</span></span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/^0\.2$/</span>; <span class="comment">//转义</span></span><br><span class="line"><span class="built_in">console</span>.log(reg.test(<span class="string">"0.2"</span>));  <span class="comment">//-&gt; true</span></span><br><span class="line"><span class="built_in">console</span>.log(reg.test(<span class="string">"0-2"</span>));  <span class="comment">//-&gt; false</span></span><br><span class="line"><span class="comment">// 分组 ()</span></span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/^(\d+)john(\d+)/</span>;</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>代表出现次数的量词元字符<br>*：出现零到多次<br>+：出现一到多次（至少出现一次）<br>?：出现零次或一次（出现/不出现）<br>{n}：出现n次<br>{n,}：出现n到多次<br>{n,m}：出现n到m次</li>
-</ol>
-<h5 id="规律："><a href="#规律：" class="headerlink" title="规律："></a>规律：</h5><ol>
-<li>[]中出现的字符都是本身，不代表特殊含义<br>var reg = /^[.]$/<br>reg.test(“1”); // false<br>reg.test(“.”); // true</li>
-<li>| 或的优先级很低，需要()改变优先级<br> var reg = /^18|19$/; // 18、19、181、189、119、819…<br> var reg = /^(18|19)$/; // 18、19</li>
-<li>分组的作用：改变优先级</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">/^\d+$/ 出现一到多次数字  reg.test(<span class="string">"2015"</span>) <span class="comment">//-&gt; true</span></span><br><span class="line"><span class="comment">// 简单的验证手机号的正则，11位数字，以1开头</span></span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/^1\d&#123;10&#125;$/</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 练习：</span></span><br><span class="line"><span class="comment">// 1. 有效数字的正则： 正数、负数、零、小数</span></span><br><span class="line"><span class="comment">// 1)"."可以出现也可以不出现，但一旦出现，后面必须有一位或多位数字  (\.\d+)?</span></span><br><span class="line"><span class="comment">// 2)最开始可以有+/-，也可以没有  ^[+-]?</span></span><br><span class="line"><span class="comment">// 3)整数部分，一位数可以是0-9任意，多位数不能以0开头  \d|([1-9]\d+)</span></span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/^[+-]?(\d|([1-9]\d+))(\.\d+)?$/</span></span><br></pre></td></tr></table></figure>
-
+<p><img src="./images/lesson2/6.png" alt=""></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">128</span>).toString(<span class="number">2</span>/<span class="number">8</span>/<span class="number">10</span>); <span class="comment">// Number原型上的toString方法是用来把数字转换成二进制、八进制、十进制</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call([])  <span class="comment">// -&gt; "[object Array]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="literal">null</span>) <span class="comment">// -&gt; "[object Null]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="regexp">/^$/</span>)  <span class="comment">// -&gt; "[object RegExp]"</span></span><br><span class="line">(&#123;&#125;).toString.call(<span class="keyword">new</span> <span class="built_in">Date</span>)  <span class="comment">// -&gt; "[object Date]"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> ary = [];</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.toString.call(ary) === <span class="string">"[object Array]"</span>) <span class="comment">// true</span></span><br><span class="line"><span class="comment">// 正则方式检测</span></span><br><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/^\[object Array\]$/</span>;</span><br><span class="line"><span class="built_in">console</span>.log(reg.test(<span class="built_in">Object</span>.prototype.toString.call(ary)));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 前面的错误</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fn</span>(<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> ary = <span class="keyword">new</span> <span class="built_in">Array</span>;</span><br><span class="line">Fn.prototype = ary; <span class="comment">// 原型继承，子类的原型等于父类的一个实例</span></span><br><span class="line"><span class="keyword">var</span> f = <span class="keyword">new</span> Fn;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.toString.call(f) === <span class="string">"[object Array]"</span>); <span class="comment">// -&gt; false</span></span><br></pre></td></tr></table></figure>
           
         
       
@@ -1205,7 +1383,7 @@ var fn = function() {
               
                 <a href="/hexo-blog/archives/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
