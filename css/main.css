@@ -1218,8 +1218,12 @@ pre .javascript .function {
 .use-motion .menu-item {
   opacity: 0;
 }
+.main-inner {
+  background-color: #fff;
+}
 .post-body {
   font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
+  background-color: #fff;
 }
 @media (max-width: 767px) {
   .post-body {
@@ -1822,7 +1826,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #e854c7;
+  background: #227eff;
 }
 .links-of-blogroll {
   font-size: 13px;
