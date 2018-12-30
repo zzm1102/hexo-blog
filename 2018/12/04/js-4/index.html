@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="一、原型模式基于构造函数模式的原型模式解决了方法或者属性公有的问题 -&amp;gt; 把实例之间相同的属性和方法提取成公有的属性和方法（xxxprototype.xxx）  每一个函数数据类型（普通函数、类）都有一个自带的属性：prototype，并且这个属性是一个对象数据类型的值 在prototype上类蓝旗给它加了一个属性constructor（构造函数），属性值是当前函数（类）本身 每一个对象数据">
+<meta name="description" content="一、原型模式基于构造函数模式的原型模式解决了方法或者属性公有的问题 -&amp;gt; 把实例之间相同的属性和方法提取成公有的属性和方法（xxxprototype.xxx）  每一个函数数据类型（普通函数、类）都有一个自带的属性：prototype，并且这个属性是一个对象数据类型的值 在prototype上浏览器给它加了一个属性constructor（构造函数），属性值是当前函数（类）本身 每一个对象数据">
 <meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JS笔记（四）——原型链模式">
 <meta property="og:url" content="http://yoursite.com/hexo-blog/2018/12/04/js-4/index.html">
 <meta property="og:site_name" content="Chimon&#39;s Blog">
-<meta property="og:description" content="一、原型模式基于构造函数模式的原型模式解决了方法或者属性公有的问题 -&amp;gt; 把实例之间相同的属性和方法提取成公有的属性和方法（xxxprototype.xxx）  每一个函数数据类型（普通函数、类）都有一个自带的属性：prototype，并且这个属性是一个对象数据类型的值 在prototype上类蓝旗给它加了一个属性constructor（构造函数），属性值是当前函数（类）本身 每一个对象数据">
+<meta property="og:description" content="一、原型模式基于构造函数模式的原型模式解决了方法或者属性公有的问题 -&amp;gt; 把实例之间相同的属性和方法提取成公有的属性和方法（xxxprototype.xxx）  每一个函数数据类型（普通函数、类）都有一个自带的属性：prototype，并且这个属性是一个对象数据类型的值 在prototype上浏览器给它加了一个属性constructor（构造函数），属性值是当前函数（类）本身 每一个对象数据">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/hexo-blog/images/lesson2/3.png">
 <meta property="og:image" content="http://yoursite.com/hexo-blog/images/lesson2/4.png">
-<meta property="og:updated_time" content="2018-12-20T07:46:20.930Z">
+<meta property="og:updated_time" content="2018-12-26T03:31:43.927Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JS笔记（四）——原型链模式">
-<meta name="twitter:description" content="一、原型模式基于构造函数模式的原型模式解决了方法或者属性公有的问题 -&amp;gt; 把实例之间相同的属性和方法提取成公有的属性和方法（xxxprototype.xxx）  每一个函数数据类型（普通函数、类）都有一个自带的属性：prototype，并且这个属性是一个对象数据类型的值 在prototype上类蓝旗给它加了一个属性constructor（构造函数），属性值是当前函数（类）本身 每一个对象数据">
+<meta name="twitter:description" content="一、原型模式基于构造函数模式的原型模式解决了方法或者属性公有的问题 -&amp;gt; 把实例之间相同的属性和方法提取成公有的属性和方法（xxxprototype.xxx）  每一个函数数据类型（普通函数、类）都有一个自带的属性：prototype，并且这个属性是一个对象数据类型的值 在prototype上浏览器给它加了一个属性constructor（构造函数），属性值是当前函数（类）本身 每一个对象数据">
 <meta name="twitter:image" content="http://yoursite.com/hexo-blog/images/lesson2/3.png">
 
 
@@ -348,7 +348,7 @@
         <h3 id="一、原型模式"><a href="#一、原型模式" class="headerlink" title="一、原型模式"></a>一、原型模式</h3><p>基于构造函数模式的原型模式解决了方法或者属性公有的问题 -&gt; 把实例之间相同的属性和方法提取成公有的属性和方法（xxxprototype.xxx）</p>
 <ol>
 <li>每一个函数数据类型（普通函数、类）都有一个自带的属性：prototype，并且这个属性是一个对象数据类型的值</li>
-<li>在prototype上类蓝旗给它加了一个属性constructor（构造函数），属性值是当前函数（类）本身</li>
+<li>在prototype上浏览器给它加了一个属性constructor（构造函数），属性值是当前函数（类）本身</li>
 <li>每一个对象数据类型（普通对象、实例、prototype…）也再带一个属性<strong>proto</strong>，属性值是当前实例所属类的原型（prototype）</li>
 </ol>
 <h4 id="Object是JS中所有对象数据类型的基类（最顶层的类）"><a href="#Object是JS中所有对象数据类型的基类（最顶层的类）" class="headerlink" title="Object是JS中所有对象数据类型的基类（最顶层的类）"></a>Object是JS中所有对象数据类型的基类（最顶层的类）</h4><p>1）f1 instanceof Object  -&gt; true  因为f1通过<strong>proto</strong>可以向上级查找，最后总能找到Object<br>2）在Object.prototype上没有<strong>proto</strong>这个属性<br><img src="/hexo-blog/images/lesson2/3.png" alt=""></p>
