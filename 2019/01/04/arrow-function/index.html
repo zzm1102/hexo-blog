@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="ES6,">
 
 
 
@@ -79,17 +79,18 @@
 
 
 
-<meta name="description" content="JS盒子模型常用属性： client系列clientWidth/clientHeight：内容宽度/高度+左右/上下padding（和内容溢出没关系）clientLeft/clientTop: 左边框宽度/上边框的高度（border[left/top]Width） offset系列offsetWidth/offsetHeight: clientWidth/clientHeight + 左右/上下边">
+<meta name="description" content="1. 箭头函数和普通函数的区别 没有自己的this、super、arguments和new.target绑定。  不能使用new来调用。  没有原型对象。  不可以改变this的绑定。  形参名称不能重复。  2. 箭头函数调用模式箭头函数中没有this绑定，必须通过查找作用域链来决定其值。 如果箭头函数被非箭头函数包含，则this绑定的是最近一层非箭头函数的this，否则this的值则被设置为全">
+<meta name="keywords" content="ES6">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JS笔记（八）——JS+CSS">
-<meta property="og:url" content="http://yoursite.com/hexo-blog/2018/12/13/js-8/index.html">
+<meta property="og:title" content="箭头函数">
+<meta property="og:url" content="http://yoursite.com/hexo-blog/2019/01/04/arrow-function/index.html">
 <meta property="og:site_name" content="Chimon&#39;s Blog">
-<meta property="og:description" content="JS盒子模型常用属性： client系列clientWidth/clientHeight：内容宽度/高度+左右/上下padding（和内容溢出没关系）clientLeft/clientTop: 左边框宽度/上边框的高度（border[left/top]Width） offset系列offsetWidth/offsetHeight: clientWidth/clientHeight + 左右/上下边">
+<meta property="og:description" content="1. 箭头函数和普通函数的区别 没有自己的this、super、arguments和new.target绑定。  不能使用new来调用。  没有原型对象。  不可以改变this的绑定。  形参名称不能重复。  2. 箭头函数调用模式箭头函数中没有this绑定，必须通过查找作用域链来决定其值。 如果箭头函数被非箭头函数包含，则this绑定的是最近一层非箭头函数的this，否则this的值则被设置为全">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-15T14:34:20.185Z">
+<meta property="og:updated_time" content="2019-01-04T01:57:17.072Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JS笔记（八）——JS+CSS">
-<meta name="twitter:description" content="JS盒子模型常用属性： client系列clientWidth/clientHeight：内容宽度/高度+左右/上下padding（和内容溢出没关系）clientLeft/clientTop: 左边框宽度/上边框的高度（border[left/top]Width） offset系列offsetWidth/offsetHeight: clientWidth/clientHeight + 左右/上下边">
+<meta name="twitter:title" content="箭头函数">
+<meta name="twitter:description" content="1. 箭头函数和普通函数的区别 没有自己的this、super、arguments和new.target绑定。  不能使用new来调用。  没有原型对象。  不可以改变this的绑定。  形参名称不能重复。  2. 箭头函数调用模式箭头函数中没有this绑定，必须通过查找作用域链来决定其值。 如果箭头函数被非箭头函数包含，则this绑定的是最近一层非箭头函数的this，否则this的值则被设置为全">
 
 
 
@@ -119,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/hexo-blog/2018/12/13/js-8/">
+  <link rel="canonical" href="http://yoursite.com/hexo-blog/2019/01/04/arrow-function/">
 
 
 
 
 
-  <title>JS笔记（八）——JS+CSS | Chimon's Blog</title>
+  <title>箭头函数 | Chimon's Blog</title>
   
 
 
@@ -252,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/hexo-blog/hexo-blog/2018/12/13/js-8/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/hexo-blog/hexo-blog/2019/01/04/arrow-function/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Chimon.Z">
@@ -269,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">JS笔记（八）——JS+CSS</h1>
+          <h1 class="post-title" itemprop="name headline">箭头函数</h1>
         
 
         <div class="post-meta">
@@ -281,8 +282,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-13T14:13:18+08:00">
-                2018-12-13
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-01-04T09:47:08+08:00">
+                2019-01-04
               </time>
             
 
@@ -291,6 +292,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/hexo-blog/categories/Notes/" itemprop="url" rel="index">
+                    <span itemprop="name">Notes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -319,20 +342,16 @@
       
 
       
-        <h3 id="JS盒子模型"><a href="#JS盒子模型" class="headerlink" title="JS盒子模型"></a>JS盒子模型</h3><h5 id="常用属性："><a href="#常用属性：" class="headerlink" title="常用属性："></a>常用属性：</h5><ol>
-<li>client系列<br>clientWidth/clientHeight：内容宽度/高度+左右/上下padding（和内容溢出没关系）<br>clientLeft/clientTop: 左边框宽度/上边框的高度（border[left/top]Width）</li>
-<li>offset系列<br>offsetWidth/offsetHeight: clientWidth/clientHeight + 左右/上下边框（和内容溢出没关系）<br>offsetParent: 当前元素的父级参照物<br>offsetLeft/offsetTop: 当前元素的外边框距离父级参照物的内边框的偏移量</li>
-<li>scroll系列<br>scrollWidth/scrollHeight: 内容没有溢出时和clientWidth/clientHeight一样<blockquote>
-<p>如果容器中内容溢出：（相近值：overflow hidden和不同浏览器都会有影响）<br>scrollWidth：真实内容的宽度（包含溢出）+左padding<br>scrollHeight：真实内容的高度（包含溢出）+上padding<br>scrollLeft/scrollTop: 滚动条滚动的宽度/高度</p>
-</blockquote>
-</li>
+        <h4 id="1-箭头函数和普通函数的区别"><a href="#1-箭头函数和普通函数的区别" class="headerlink" title="1. 箭头函数和普通函数的区别"></a>1. 箭头函数和普通函数的区别</h4><ol>
+<li>没有自己的this、super、arguments和new.target绑定。 </li>
+<li>不能使用new来调用。 </li>
+<li>没有原型对象。 </li>
+<li>不可以改变this的绑定。 </li>
+<li>形参名称不能重复。</li>
 </ol>
-<h5 id="JS盒子模型属性取值问题"><a href="#JS盒子模型属性取值问题" class="headerlink" title="JS盒子模型属性取值问题"></a>JS盒子模型属性取值问题</h5><ol>
-<li>不会出现小数，自动进行四舍五入</li>
-<li>关于操作浏览器本身的盒子模型信息<br>clientWidth/clientHeight: 当前浏览器可视窗口的宽度和高度（一屏幕的宽高）<br>scrollWidth/scrollHeight: 当前页面的真实宽高（所有屏的总宽高，是约等于值）<br>需要写 document.doxumentElement[attr] || document.body[attr] 且documentElement在前来兼容<br>e.g. document.doxumentElement.scrollTop || document.body.scrollTop<br>e.g. 设置：<br>document.doxumentElement.scrollTop = 0;<br>document.body.scrollTop = 0;</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 编写关于操作盒子模型的方法</span></span><br><span class="line"><span class="comment">// 如果只传递attr，没有传递value，默认意思是获取样式值</span></span><br><span class="line"><span class="comment">// 如果两个参数都传递了，意思为“设置”</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">win</span>(<span class="params">attr, value</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(<span class="keyword">typeof</span> value === <span class="string">"undefined"</span>) &#123; <span class="comment">// 没有传递value值 -&gt; 获取</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">document</span>.documentElement[attr] || <span class="built_in">document</span>.body[attr]</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 设置</span></span><br><span class="line">  <span class="built_in">document</span>.documentElement[attr] = value;</span><br><span class="line">  <span class="built_in">document</span>.body[attr] = value</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(win(<span class="string">"clientHeight"</span>));</span><br><span class="line">win(<span class="string">"scrollTop"</span>, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
-
+<h4 id="2-箭头函数调用模式"><a href="#2-箭头函数调用模式" class="headerlink" title="2. 箭头函数调用模式"></a>2. 箭头函数调用模式</h4><p>箭头函数中没有this绑定，必须通过查找作用域链来决定其值。 如果箭头函数被非箭头函数包含，则this绑定的是最近一层非箭头函数的this，否则this的值则被设置为全局对象。 比如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">'window'</span>;</span><br><span class="line"><span class="keyword">var</span> student = &#123;</span><br><span class="line">    name: <span class="string">'Chimon'</span>,</span><br><span class="line">    doSth: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="comment">// var self = this;</span></span><br><span class="line">        <span class="keyword">var</span> arrowDoSth = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="comment">// console.log(self.name);</span></span><br><span class="line">            <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">        &#125;</span><br><span class="line">        arrowDoSth();</span><br><span class="line">    &#125;,</span><br><span class="line">    arrowDoSth2: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">student.doSth(); <span class="comment">// 'Chimon'</span></span><br><span class="line">student.arrowDoSth2(); <span class="comment">// 'window'</span></span><br></pre></td></tr></table></figure></p>
+<p>这就相当于箭头函数外的this是缓存的该箭头函数上层的普通函数的this。如果没有普通函数，则是全局对象（浏览器中则是window）。<br>也就是说无法通过call、apply、bind绑定箭头函数的this(它自身没有this)。而call、apply、bind可以绑定缓存箭头函数上层的普通函数的this。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> student = &#123;</span><br><span class="line">    name: <span class="string">'Chimon'</span>,</span><br><span class="line">    doSth: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">        <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'arrowFn:'</span>, <span class="keyword">this</span>.name);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">    name: <span class="string">'person'</span>,</span><br><span class="line">&#125;</span><br><span class="line">student.doSth().call(person); <span class="comment">// 'Chimon'  'arrowFn:' 'Chimon'</span></span><br><span class="line">student.doSth.call(person)(); <span class="comment">// 'person' 'arrowFn:' 'person'</span></span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -347,6 +366,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/hexo-blog/tags/ES6/" rel="tag"># ES6</a>
+          
+        </div>
+      
 
       
       
@@ -356,8 +381,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/hexo-blog/2018/12/10/js-7/" rel="next" title="JS笔记（七）——正则">
-                <i class="fa fa-chevron-left"></i> JS笔记（七）——正则
+              <a href="/hexo-blog/2018/12/13/js-8/" rel="next" title="JS笔记（八）——JS+CSS">
+                <i class="fa fa-chevron-left"></i> JS笔记（八）——JS+CSS
               </a>
             
           </div>
@@ -365,10 +390,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/hexo-blog/2019/01/04/arrow-function/" rel="prev" title="箭头函数">
-                箭头函数 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -500,7 +521,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#JS盒子模型"><span class="nav-number">1.</span> <span class="nav-text">JS盒子模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#常用属性："><span class="nav-number">1.0.1.</span> <span class="nav-text">常用属性：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#JS盒子模型属性取值问题"><span class="nav-number">1.0.2.</span> <span class="nav-text">JS盒子模型属性取值问题</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-箭头函数和普通函数的区别"><span class="nav-number">1.</span> <span class="nav-text">1. 箭头函数和普通函数的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-箭头函数调用模式"><span class="nav-number">2.</span> <span class="nav-text">2. 箭头函数调用模式</span></a></li></ol></div>
             
 
           </div>
