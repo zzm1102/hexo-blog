@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/hexo-blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/hexo-blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/hexo-blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/hexo-blog/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/hexo-blog/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/hexo-blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/hexo-blog/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Algorithm,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="枚举 给出解空间，建立简洁的数学模型（n不能被[2,n)中任意一个素数整除，而不是整数） 减少搜索空间（除2以外，只有奇数才可能是素数） 采用合适的搜索顺序（遍历顺序，如从小到大）  e.g. 熄灯问题问题描述：每按一次按钮，如果灯原来是点亮的，就会被熄灭，如果灯原来是熄灭的，就会被点亮    在矩阵角上的按钮改变3盏灯的状态    在矩阵边上的按钮改变4盏灯的状态    其他按钮改变5盏灯的状态">
+<meta name="keywords" content="Algorithm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Algorithm (一) —— 枚举（熄灯问题）">
+<meta property="og:url" content="http://yoursite.com/hexo-blog/2019/03/12/algorithm1/index.html">
+<meta property="og:site_name" content="Chimon&#39;s Blog">
+<meta property="og:description" content="枚举 给出解空间，建立简洁的数学模型（n不能被[2,n)中任意一个素数整除，而不是整数） 减少搜索空间（除2以外，只有奇数才可能是素数） 采用合适的搜索顺序（遍历顺序，如从小到大）  e.g. 熄灯问题问题描述：每按一次按钮，如果灯原来是点亮的，就会被熄灭，如果灯原来是熄灭的，就会被点亮    在矩阵角上的按钮改变3盏灯的状态    在矩阵边上的按钮改变4盏灯的状态    其他按钮改变5盏灯的状态">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/hexo-blog/images/algorithm/light.png">
+<meta property="og:image" content="http://yoursite.com/hexo-blog/images/algorithm/light_out.png">
+<meta property="og:image" content="http://yoursite.com/hexo-blog/images/algorithm/enumerate.png">
+<meta property="og:image" content="http://yoursite.com/hexo-blog/images/algorithm/enumerate2.png">
+<meta property="og:image" content="http://yoursite.com/hexo-blog/images/algorithm/enumerate3.png">
+<meta property="og:updated_time" content="2019-03-12T15:23:56.944Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Algorithm (一) —— 枚举（熄灯问题）">
+<meta name="twitter:description" content="枚举 给出解空间，建立简洁的数学模型（n不能被[2,n)中任意一个素数整除，而不是整数） 减少搜索空间（除2以外，只有奇数才可能是素数） 采用合适的搜索顺序（遍历顺序，如从小到大）  e.g. 熄灯问题问题描述：每按一次按钮，如果灯原来是点亮的，就会被熄灭，如果灯原来是熄灭的，就会被点亮    在矩阵角上的按钮改变3盏灯的状态    在矩阵边上的按钮改变4盏灯的状态    其他按钮改变5盏灯的状态">
+<meta name="twitter:image" content="http://yoursite.com/hexo-blog/images/algorithm/light.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/hexo-blog/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/hexo-blog/2019/03/12/algorithm1/">
+
+
+
+
+
+  <title>Algorithm (一) —— 枚举（熄灯问题） | Chimon's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/hexo-blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Chimon's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/hexo-blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/hexo-blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/hexo-blog/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/hexo-blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/hexo-blog/hexo-blog/2019/03/12/algorithm1/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chimon.Z">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/hexo-blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chimon's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Algorithm (一) —— 枚举（熄灯问题）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-12T21:15:56+08:00">
+                2019-03-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/hexo-blog/categories/Notes/" itemprop="url" rel="index">
+                    <span itemprop="name">Notes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h3><ul>
+<li>给出解空间，建立简洁的数学模型（n不能被[2,n)中任意一个素数整除，而不是整数）</li>
+<li>减少搜索空间（除2以外，只有奇数才可能是素数）</li>
+<li>采用合适的搜索顺序（遍历顺序，如从小到大）</li>
+</ul>
+<h4 id="e-g-熄灯问题"><a href="#e-g-熄灯问题" class="headerlink" title="e.g. 熄灯问题"></a>e.g. 熄灯问题</h4><h5 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h5><p>每按一次按钮，如果灯原来是点亮的，就会被熄灭，<br>如果灯原来是熄灭的，就会被点亮<br>    在矩阵角上的按钮改变3盏灯的状态<br>    在矩阵边上的按钮改变4盏灯的状态<br>    其他按钮改变5盏灯的状态（上下左右自己）<br>    与一盏灯毗邻的多个按钮被按下时，一个操作会抵消另一次操作的结果<br>  <img src="/hexo-blog/images/algorithm/light.png" alt=""></p>
+<p>输入：</p>
+<ul>
+<li>第一行是一个正整数N，表示需要解决的案例数（初始状态）</li>
+<li>每个案例由5行组成，每一行包括6个数字，可用空格隔开，可以是0或1</li>
+<li>0 表示灯的初始状态是熄灭</li>
+<li>1 表示灯的初始状态是点亮</li>
+</ul>
+<p>输出：</p>
+<ul>
+<li>对每个案例，首先输出一行，字符串“PUZZLE #m”，其中m是该案例的序号</li>
+<li>接着按照案例的输入格式输出5行<ul>
+<li>1 表示需要把对应的按钮按下</li>
+<li>0 表示不需要按对应的按钮</li>
+<li>每个数字以一个空格隔开</li>
+</ul>
+</li>
+</ul>
+<p><img src="/hexo-blog/images/algorithm/light_out.png" alt=""></p>
+<h5 id="解题思路："><a href="#解题思路：" class="headerlink" title="解题思路："></a>解题思路：</h5><p>枚举所有可能的按钮开关状态，对每个状态计算最后的情况，看是否都熄灭</p>
+<ul>
+<li>每个按钮有两种状态 0/1</li>
+<li>一共有30个开关，状态数是2^30，会超时</li>
+</ul>
+<p>如何减少枚举数目：<br>存在某个局部 -&gt; 第1行 状态确定，剩余的其他部分状态只能是确定的一种，或者不多的n种，<br>从而只需枚举这个局部的状态即可</p>
+<p>原因：<br>第1行各开关状态确定的情况下（有某个初始状态），操作过这些开关后，再要熄灭第1行某个亮着的灯（假设位于第i列），唯一的办法就只有按下第2行第i列的开关<br>-&gt; 为了熄灭第二行的灯，第3行的合理开关状态就也是唯一的<br>-&gt; 以此类推，最后一行开关状态也是唯一的<br>只要第一行状态确定，记作A，那么剩余行的情况就是确定唯一的了</p>
+<p>-&gt; 推算出最后一行的开关状态，看能否使所有灯都熄灭</p>
+<ul>
+<li>如果都熄灭，那么A就是一个解的状态</li>
+<li>如果不行，那么A就不是解，需要换个状态重新试试</li>
+</ul>
+<p>枚举第一行，状态数是2^6 = 64;<br>状态数更少的做法：<br>枚举第一列，状态数是2^5 = 32<br>执行次数：64 <em> 5 </em> 6 vs. 32 <em> 6 </em> 5<br><img src="/hexo-blog/images/algorithm/enumerate.png" alt=""></p>
+<h5 id="具体实现："><a href="#具体实现：" class="headerlink" title="具体实现："></a>具体实现：</h5><ul>
+<li><p>用一个矩阵 puzzle[5][6] 表示灯的初始状态</p>
+<ul>
+<li>puzzle[i][j] = 1 ：灯(i,j)初始时是被点亮的</li>
+<li>puzzle[i][j] = 0 ：灯(i,j)初始时是被熄灭的</li>
+</ul>
+</li>
+<li><p>用一个矩阵 press[5][6] 表示要计算的结果</p>
+<ul>
+<li>press[i][j] = 1 ：需要按下按钮(i,j)</li>
+<li>press[i][j] = 0 ：不需要按下按钮(i,j)</li>
+</ul>
+</li>
+</ul>
+<p>press[0]里放着第1行开关的状态，可用六重循环进行枚举：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>( <span class="keyword">int</span> a0 = <span class="number">0</span>; a0 &lt; <span class="number">2</span>; a0++ )</span><br><span class="line">  <span class="keyword">for</span>( <span class="keyword">int</span> a1 = <span class="number">0</span>; a1 &lt; <span class="number">2</span>; a1++ )</span><br><span class="line">    <span class="keyword">for</span>( <span class="keyword">int</span> a2 = <span class="number">0</span>; a2 &lt; <span class="number">2</span>; a2++ )</span><br><span class="line">      <span class="keyword">for</span>( <span class="keyword">int</span> a3 = <span class="number">0</span>; a3 &lt; <span class="number">2</span>; a3++ )</span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> a4 = <span class="number">0</span>; a4 &lt; <span class="number">2</span>; a4++ )</span><br><span class="line">          <span class="keyword">for</span>( <span class="keyword">int</span> a5 = <span class="number">0</span>; a5 &lt; <span class="number">2</span>; a5++ ) &#123;</span><br><span class="line">            press[<span class="number">0</span>][<span class="number">0</span>] = a0;</span><br><span class="line">            press[<span class="number">0</span>][<span class="number">1</span>] = a1;</span><br><span class="line">            press[<span class="number">0</span>][<span class="number">2</span>] = a2;  ......</span><br><span class="line">          &#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="/hexo-blog/images/algorithm/enumerate2.png" alt=""></p>
+<blockquote>
+<p>优化方法：扩充成6*8的数组表示按钮矩阵，省略角和边的特殊情况</p>
+</blockquote>
+<p><img src="/hexo-blog/images/algorithm/enumerate3.png" alt=""></p>
+<blockquote>
+<p>给定PRESS第1行的取值，计算出PRESS的其他行的值</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">press[r+<span class="number">1</span>][c] = (puzzle[r][c]+press[r][c-<span class="number">1</span>]</span><br><span class="line">                  + press[r][c]+press[r][c+<span class="number">1</span>] + press[r-<span class="number">1</span>][c]) % <span class="number">2</span></span><br><span class="line"><span class="number">0</span>&lt;r&lt;<span class="number">5</span>, <span class="number">0</span>&lt;c&lt;<span class="number">7</span></span><br></pre></td></tr></table></figure>
+<p>程序实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"><span class="keyword">int</span> puzzle[<span class="number">6</span>][<span class="number">8</span>], press[<span class="number">6</span>][<span class="number">8</span>];</span><br><span class="line"><span class="function">bool <span class="title">guess</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> c, r;</span><br><span class="line">  <span class="keyword">for</span>(r=<span class="number">1</span>; r&lt;<span class="number">5</span>; c++)</span><br><span class="line">    <span class="keyword">for</span>(c=<span class="number">1</span>; c&lt;<span class="number">7</span>; c++)</span><br><span class="line">      press[r+<span class="number">1</span>][c] = (puzzle[r][c]+press[r][c] + press[r][c]+press[r][c+<span class="number">1</span>] + press[r-<span class="number">1</span>][c]) % <span class="number">2</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">for</span>(c=<span class="number">1</span>; c&lt;<span class="number">7</span>; c++) </span><br><span class="line">    <span class="comment">// 判断所计算的第5行灯的状态是否一致来判断能否熄灭所有灯</span></span><br><span class="line">    <span class="keyword">if</span>((press[<span class="number">5</span>][c-<span class="number">1</span>] + press[<span class="number">5</span>][c] + press[<span class="number">5</span>][c+<span class="number">1</span>] + press[<span class="number">4</span>][c]) % <span class="number">2</span> != puzzle[<span class="number">5</span>][c] )</span><br><span class="line">      <span class="keyword">return</span> (<span class="keyword">false</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 对press第1行的元素press[1][1]~press[1][6]的各种情况进行枚举</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">enumerate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> c;</span><br><span class="line">  bool success;</span><br><span class="line">  <span class="keyword">for</span> (c=<span class="number">1</span>; c&lt;<span class="number">7</span>; c++) </span><br><span class="line">    press[<span class="number">1</span>][c] = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span>( guess() == <span class="keyword">false</span> ) &#123;</span><br><span class="line">    press[<span class="number">1</span>][<span class="number">1</span>]++;</span><br><span class="line">    c = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (press[<span class="number">1</span>][c] &gt; <span class="number">1</span>) &#123;</span><br><span class="line">      press[<span class="number">1</span>][c] = <span class="number">0</span>;</span><br><span class="line">      c++;</span><br><span class="line">      press[<span class="number">1</span>][c]++;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// cases 输入的是第一行</span></span><br><span class="line">  <span class="keyword">int</span> cases,i,r,c;</span><br><span class="line">  scanf(<span class="string">"%d"</span>, &amp;cases);</span><br><span class="line">  <span class="keyword">for</span> ( r=<span class="number">0</span>; r&lt;<span class="number">6</span>; r++ ) </span><br><span class="line">    press[r][<span class="number">0</span>] = press[r][<span class="number">7</span>] = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> ( c=<span class="number">1</span>; c&lt;<span class="number">7</span>; c++) </span><br><span class="line">    press[<span class="number">0</span>][c] = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> ( i=<span class="number">0</span>; i&lt;cases; i++ ) &#123;</span><br><span class="line">    <span class="keyword">for</span>(r=<span class="number">1</span>; r&lt;<span class="number">6</span>; r++)</span><br><span class="line">      <span class="keyword">for</span>(c=<span class="number">1</span>; c&lt;<span class="number">7</span>; c++)</span><br><span class="line">        scanf(<span class="string">"%d"</span>, &amp;puzzle[r][c]);</span><br><span class="line">        enumerate();</span><br><span class="line">        printf(<span class="string">"PUZZLE #%d\n"</span>, i+<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span>(r=<span class="number">1</span>; r&lt;<span class="number">6</span>; r++) &#123;</span><br><span class="line">          <span class="keyword">for</span>(c=<span class="number">1</span>; c&lt;<span class="number">7</span>; c++)</span><br><span class="line">            printf(<span class="string">"%d"</span>, press[r][c]);</span><br><span class="line">          printf(<span class="string">"\n"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h5><ul>
+<li>枚举过程 enumerate()<ul>
+<li>press[1][] 中每一个元素表示一个二进制数0/1，通过模拟二进制加法方式实现枚举</li>
+<li>需要处理进位</li>
+</ul>
+</li>
+<li>推测验证过程 guess()<ul>
+<li>用6*8按钮矩阵来简化下一行按钮值的计算公式</li>
+<li>根据press[1][]和puzzle数组用公式来计算，使得1-4行所有灯熄灭的press其他行的值，再判断所计算的press数组能否熄灭矩阵第5行的所有灯</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/hexo-blog/tags/Algorithm/" rel="tag"># Algorithm</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/hexo-blog/2019/02/11/redux/" rel="next" title="Redux 入门">
+                <i class="fa fa-chevron-left"></i> Redux 入门
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Chimon.Z</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/hexo-blog/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/hexo-blog/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/hexo-blog/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#枚举"><span class="nav-number">1.</span> <span class="nav-text">枚举</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#e-g-熄灯问题"><span class="nav-number">1.1.</span> <span class="nav-text">e.g. 熄灯问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#问题描述："><span class="nav-number">1.1.1.</span> <span class="nav-text">问题描述：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#解题思路："><span class="nav-number">1.1.2.</span> <span class="nav-text">解题思路：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#具体实现："><span class="nav-number">1.1.3.</span> <span class="nav-text">具体实现：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#总结："><span class="nav-number">1.1.4.</span> <span class="nav-text">总结：</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chimon.Z</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/hexo-blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/hexo-blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/hexo-blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/hexo-blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/hexo-blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/hexo-blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/hexo-blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/hexo-blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/hexo-blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/hexo-blog/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/hexo-blog/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
